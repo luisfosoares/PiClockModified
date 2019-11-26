@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-                 # NOQA
 
+
 import sys
 import os
 import platform
@@ -32,9 +33,11 @@ sys.dont_write_bytecode = True
 #sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
 from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # NOQA
+
+#File ApiKeys with tokens to access the weather and radar data 
 import ApiKeys                                              # NOQA
 
-
+#Second by second clock definition
 def tick():
     global hourpixmap, minpixmap, secpixmap
     global hourpixmap2, minpixmap2, secpixmap2
@@ -124,13 +127,13 @@ def tick():
     if now.day != lastday:
         lastday = now.day
         # date
-        sup = ''
+        sup = 'th'
         if (now.day == 1 or now.day == 21 or now.day == 31):
-            sup = ' '
+            sup = 'st'
         if (now.day == 2 or now.day == 22):
-            sup = ' '
+            sup = 'nd'
         if (now.day == 3 or now.day == 23):
-            sup = ' '
+            sup = 'rd'
         if Config.DateLocale != "":
             sup = ""
         ds = "{0:%A}, {0.day}<sup>{1}</sup>  {0:%B} {0.year}".format(now, sup)
@@ -138,7 +141,7 @@ def tick():
         datex.setText(ds.title())
         datex2.setText(ds2.title())
 
-
+#Internal temperature definition 
 def tempfinished():
     global tempreply, temp
     if tempreply.error() != QNetworkReply.NoError:
@@ -166,7 +169,7 @@ def tempfinished():
                     s += ' ' + tk + ':' + tempdata['temps'][tk]
     temp.setText(s)
 
-
+#Unit onversions 
 def tempm(f):
     return (f - 32) / 1.8
 
@@ -182,7 +185,7 @@ def pressi(f):
 def heightm(f):
     return f * 25.4
 
-
+#Moon Phases 
 def phase(f):
     pp = Config.Lmoon1          # 'New Moon'
     if (f > 0.9375):
@@ -203,7 +206,7 @@ def phase(f):
             pp = Config.Lmoon2  # 'Waxing Crescent'
     return pp
 
-
+#Wind bearing 
 def bearing(f):
     wd = 'N'
     if (f > 22.5):
@@ -224,7 +227,7 @@ def bearing(f):
         wd = 'N'
     return wd
 
-
+#Get inside temperature
 def gettemp():
     global tempreply
     host = 'localhost'
@@ -235,6 +238,11 @@ def gettemp():
     tempreply = manager.get(r)
     tempreply.finished.connect(tempfinished)
 
+#Define text for labels of obituary section after obituary photo defined 
+
+###To change name of method and variables inside
+### to change name of attribution label
+###To conclude with remaining labels 
 
 def photoFinished(numero):
         global attribution
@@ -247,6 +255,7 @@ def photoFinished(numero):
 
         attribution.setText(Nome)
 
+#Definition of weather conditions after weatehr request 
 def wxfinished():
     global wxreply, wxdata
     global wxicon, temper, wxdesc, press, humidity
@@ -319,8 +328,6 @@ def wxfinished():
                        Config.LSet +
                        "{0:%H:%M}".format(datetime.datetime.fromtimestamp(
                         wxdata["daily"]["data"][0]["sunsetTime"])))
-
-#	bottomText += ("\n")
 
     if "moonPhase" in wxdata["daily"]["data"][0]:
         bottomText += (Config.LMoonPhase +
@@ -427,7 +434,7 @@ def wxfinished():
         wx.setStyleSheet("#wx { font-size: " + str(int(19 * xscale)) + "px; }")
         wx.setText(f['summary'] + "\n" + s)
 
-
+#Get weather response
 def getwx():
     global wxurl
     global wxreply
@@ -445,11 +452,14 @@ def getwx():
     wxreply = manager.get(r)
     wxreply.finished.connect(wxfinished)
 
-
+#Get weatehr data 
 def getallwx():
     getwx()
 
 
+#START FUNCTION
+#will request to update all weatehr, inside temperature, run clock, all start all slideshows 
+#important to define order of methods 
 def qtstart():
     global ctimer, wxtimer, temptimer
     global manager
@@ -459,12 +469,11 @@ def qtstart():
     global objradar4
 
 
-
-
     getallwx()
 
     gettemp()
 
+    #replaced by obituary
     #objradar1.start(Config.radar_refresh * 60)
     #objradar1.wxstart()
     objradar2.start(Config.radar_refresh * 60)
@@ -488,8 +497,9 @@ def qtstart():
     if Config.useslideshow:
         objimage1.start(Config.slide_time)
 
+###Change name of donwloadPhotos
     if Config.downloadPhotos:
-
+###Change name of time_to_fetch to time_to_scape_obituary
         objimage3.startFetching(Config.time_to_fetch)
 
     if Config.usephotoshow:
@@ -499,7 +509,7 @@ def qtstart():
 
 
 
-
+## Class to run Main Slideshow (in the center of screen)
 class SS(QtGui.QLabel):
     def __init__(self, parent, rect, myname):
         self.myname = myname
@@ -510,7 +520,6 @@ class SS(QtGui.QLabel):
         self.count = 0
         self.img_list = []
         self.img_inc = 1
-
 
         self.get_images()
         self.setObjectName("slideShow")
@@ -535,23 +544,16 @@ class SS(QtGui.QLabel):
             pass
 
     def run_ss(self):
-        #print "run_ss method called "
-        #print "vai chamar get_images dentro do methodo run_ss"
         self.get_images()
-        #print "vai chamar get_images dentro do methodo run_ss"
         self.switch_image()
 
 
-
     def switch_image(self):
-        #print "switch_image method called"
         if self.img_list:
             if not self.pause:
-                #print "not paused"
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
                     self.count = 0
-                    #print "valor colocado a 0"
                 self.show_image(self.img_list[self.count])
                 self.img_inc = 1
 
@@ -579,6 +581,7 @@ class SS(QtGui.QLabel):
         self.switch_image()
         self.timer.start()
 
+    #get local images in slideshow folder
     def get_local(self, path):
         try:
             dirContent = os.listdir(path)
@@ -592,9 +595,11 @@ class SS(QtGui.QLabel):
                     self.img_list.append(fullFile)
 
 
+#Class to fetch all data 
+##To change name to Scrape_obituary
 class Fetch():
 
-    print "FEtch running "
+    print "Fetch running "
 
     def startFetching(self, interval):
         print "startFetching"
@@ -611,22 +616,18 @@ class Fetch():
             pass
 
     def run_ss3(self):
-        #print "run_ss3 method called "
         self.fetch_photos()
 
 
-
-
     def fetch_photos(self):
-        print "fetching"
+        print "Fetching"
+	#Obituary source
+	### To change to config file 
         source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
 
-
-
-
-
+### To change all names below
         global nomes
         global fotos
         global datas
@@ -673,14 +674,16 @@ class Fetch():
         	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
                     ages.append(idade.text.strip())
 
-
+	#To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             print (index, nome)
             print nomes[index]
             print fotos[index]
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index])
 
-        ##apagar as fotos
+		
+        #Deletes all folder pictures to be replaced by new
+	### To change to delete before creating new
         folder = '/home/pi/PiClock/Clock/images/photoshow'
         for filename in os.listdir(folder):
             file_path = os.path.join(folder, filename)
@@ -692,12 +695,14 @@ class Fetch():
             except Exception as e:
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-        ##download das photos
+        #Download of new updated pictures of obituary
+	###To change to delete and create 
         for photo in fotos:
             i = fotos.index(photo)
-            print "index photo"
-            print str(i)
+	    #to get picture extension last 3 characters
+	    #will receive jpeg or png- Idea is to save all in jpg 
             extensao = photo[-3:]
+	    #to convert jpeg to jpg
             if extensao == "peg":
                 extensao = "jpg"
             nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
@@ -710,7 +715,7 @@ class Fetch():
 
 
 
-
+## Class to run Obituary Slideshow (in the left of screen)
 class SS2(QtGui.QLabel):
     print "SS running"
 
@@ -725,9 +730,8 @@ class SS2(QtGui.QLabel):
         self.img_list = []
         self.img_inc = 1
 
-
-
         #self.get_images()
+	### to test what happens if not commented above
         self.setObjectName("slideShow")
         self.setGeometry(rect)
         self.setStyleSheet("#slideShow { background-color: " +
@@ -752,17 +756,18 @@ class SS2(QtGui.QLabel):
         self.switch_image()
 
 
-
     def switch_image(self):
         if self.img_list:
             if not self.pause:
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
                     self.count = 0
-                    #print "valor colocado a 0"
                 self.show_image(self.img_list[self.count])
-                #numero da photo no array
-                print ((self.img_list[self.count])[-5:])[:1]
+		#to get number of photo based on saved name
+		#select last 5 characters, remove the . and extension (3chars)
+                #print ((self.img_list[self.count])[-5:])[:1]
+		###change name of variable
+		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
                 valor = int(((self.img_list[self.count])[-5:])[:1])
                 photoFinished(valor)
                 self.img_inc = 1
@@ -807,8 +812,11 @@ class SS2(QtGui.QLabel):
                     self.img_list.append(fullFile)
 
 
-
-def pessoa(nome, photo, date ,id ,age):
+#Method do receive obituary persons 1 by 1 and convert it into dictionary 
+#Create list with all dictinary
+#List will be ordered according scrapping 
+### To rework, is it neede d all conversion from array do dict.......
+def pessoa(nome, photo, date, id, age):
 
 
     global dicionario
@@ -823,12 +831,9 @@ def pessoa(nome, photo, date ,id ,age):
         }
 
     listaPessoas.append(dicionario)
-    #print dicionario
-    #print listaPessoas
 
 
-
-
+#Radar definition
 class Radar(QtGui.QLabel):
 
     def __init__(self, parent, radar, rect, myname):
@@ -1165,11 +1170,11 @@ class Radar(QtGui.QLabel):
         except Exception:
             pass
 
-
+#Quit app
 def realquit():
     QtGui.QApplication.exit(0)
 
-
+#stop all items 
 def myquit(a=0, b=0):
     global objradar1, objradar2, objradar3, objradar4
     global ctimer, wtimer, temptimer
@@ -1192,7 +1197,7 @@ def myquit(a=0, b=0):
 
     QtCore.QTimer.singleShot(30, realquit)
 
-
+#Related with radar 
 def fixupframe(frame, onoff):
     for child in frame.children():
         if isinstance(child, Radar):
@@ -1203,7 +1208,7 @@ def fixupframe(frame, onoff):
                 # print "calling wxstop on radar on ",frame.objectName()
                 child.wxstop()
 
-
+#Change frames in app
 def nextframe(plusminus):
     global frames, framep
     frames[framep].setVisible(False)
@@ -1217,6 +1222,7 @@ def nextframe(plusminus):
     fixupframe(frames[framep], True)
 
 
+#Main class to listem for keyboarda nd click modification 
 class myMain(QtGui.QWidget):
 
     def keyPressEvent(self, event):
@@ -1269,6 +1275,7 @@ if not os.path.isfile(configname + ".py"):
 Config = __import__(configname)
 
 # define default values for new/optional config variables.
+###To add new values added to config file 
 
 try:
     Config.location
@@ -1383,7 +1390,7 @@ try:
 except AttributeError:
     pass
 
-
+#Variables 
 lastmin = -1
 lastday = -1
 pdy = ""
@@ -1392,6 +1399,8 @@ weatherplayer = None
 lastkeytime = 0
 lastapiget = time.time()
 
+
+#PyQT Definitions
 app = QtGui.QApplication(sys.argv)
 desktop = app.desktop()
 rec = desktop.screenGeometry()
@@ -1416,6 +1425,7 @@ yscale = float(height) / 900.0
 #print ("xscale "  + str(xscale))
 #print ("yscale" + str(yscale))
 
+#PyQt Desings 
 frames = []
 framep = 0
 
@@ -1586,6 +1596,7 @@ datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
 datey2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datey2.setGeometry(800 * xscale, 840 * yscale, 640 * xscale, 100)
 
+###Chage name to obituaryName
 attribution = QtGui.QLabel(foreGround)
 attribution.setObjectName("attribution")
 attribution.setStyleSheet("#attribution { " +
@@ -1598,6 +1609,10 @@ attribution.setStyleSheet("#attribution { " +
                           "}")
 attribution.setAlignment(Qt.AlignTop)
 attribution.setGeometry(6 * xscale, height - (yscale * 525) - 60, 300 * xscale, 100)
+
+###Change deffine all other obituary labels 
+
+
 
 ypos = -25
 wxicon = QtGui.QLabel(foreGround)
