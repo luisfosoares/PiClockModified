@@ -236,13 +236,24 @@ def gettemp():
     tempreply.finished.connect(tempfinished)
 
 
+def photoFinished(numero):
+        global attribution
+
+        print "photofinished"
+        individuo = listaPessoas[numero]
+        Nome = individuo["age"]
+        print "Nome"
+        print Nome
+
+        attribution.setText(Nome)
+
 def wxfinished():
     global wxreply, wxdata
     global wxicon, temper, wxdesc, press, humidity
     global wind, wind2, wdate, bottom, forecast
-    global wxicon2, temper2, wxdesc, attribution
+    global wxicon2, temper2, wxdesc
 
-    attribution.setText("")
+    #attribution.setText("teste")
     attribution2.setText("")
 
     wxstr = str(wxreply.readAll())
@@ -477,13 +488,15 @@ def qtstart():
     if Config.useslideshow:
         objimage1.start(Config.slide_time)
 
+    if Config.downloadPhotos:
+
+        objimage3.startFetching(Config.time_to_fetch)
+
     if Config.usephotoshow:
         objimage2.startPhoto(Config.photo_time)
 
 
-    if Config.downloadPhotos:
 
-        objimage3.startFetching(Config.time_to_fetch)
 
 
 
@@ -536,8 +549,6 @@ class SS(QtGui.QLabel):
             if not self.pause:
                 #print "not paused"
                 self.count += self.img_inc
-                print "numero de imagens"
-                print (str(self.count))
                 if self.count >= len(self.img_list):
                     self.count = 0
                     #print "valor colocado a 0"
@@ -546,8 +557,6 @@ class SS(QtGui.QLabel):
 
     def show_image(self, image):
         image = QtGui.QImage(image)
-        print image
-        print "setting image"
         bg = QtGui.QPixmap.fromImage(image)
         self.setPixmap(bg.scaled(
                 self.size(),
@@ -571,7 +580,6 @@ class SS(QtGui.QLabel):
         self.timer.start()
 
     def get_local(self, path):
-        print (str(path))
         try:
             dirContent = os.listdir(path)
         except OSError:
@@ -583,18 +591,129 @@ class SS(QtGui.QLabel):
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
 
-class SS2(QtGui.QLabel):
 
-    global nomes
-    global fotos
-    global datas
-    global ids
-    global ages
-    nomes = ["teste1","teste2","teste3","teste4","teste5"]
-    fotos = []
-    datas = []
-    ids = []
-    ages = []
+class Fetch():
+
+    print "FEtch running "
+
+    def startFetching(self, interval):
+        print "startFetching"
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.run_ss3)
+        self.timer.start(1000 * interval + random.uniform(1, 10))
+        self.run_ss3()
+
+    def stop(self):
+        try:
+            self.timer.stop()
+            self.timer = None
+        except Exception:
+            pass
+
+    def run_ss3(self):
+        #print "run_ss3 method called "
+        self.fetch_photos()
+
+
+
+
+    def fetch_photos(self):
+        print "fetching"
+        source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+
+        soup =BeautifulSoup(source, 'html5lib')
+
+
+
+
+
+        global nomes
+        global fotos
+        global datas
+        global ids
+        global ages
+        global listaPessoas
+
+
+        nomes = []
+        fotos = []
+        datas = []
+        ids = []
+        ages = []
+        listaPessoas = []
+
+
+        for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
+        	nomes.append(falecimentos.text)
+
+        for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=Config.limit):
+        	pattern = r"(?<=url\().*(?='\))"
+        	url = re.search(pattern, result["style"]).group(0)
+        	url= url[1:]
+        	fotos.append(str(url))
+
+
+        for obito in soup.find_all('span',class_='idade', limit=Config.limit):
+        	datas.append(obito.text)
+
+
+        for result in  soup.find_all('div',class_='f_bloc',limit=Config.limit):
+        	for link in result.find_all('a', attrs={'href': re.compile("^https://")}):
+        		idfinal = link.get('href')[-5:]
+        		ids.append(idfinal)
+
+
+        for id in ids:
+        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+
+        	soup2 =BeautifulSoup(soure, 'html5lib')
+
+
+
+        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+                    ages.append(idade.text.strip())
+
+
+        for index, nome in enumerate(nomes):
+            print (index, nome)
+            print nomes[index]
+            print fotos[index]
+            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index])
+
+        ##apagar as fotos
+        folder = '/home/pi/PiClock/Clock/images/photoshow'
+        for filename in os.listdir(folder):
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+        ##download das photos
+        for photo in fotos:
+            i = fotos.index(photo)
+            print "index photo"
+            print str(i)
+            extensao = photo[-3:]
+            if extensao == "peg":
+                extensao = "jpg"
+            nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
+            f = open(nameString,'wb')
+            f.write(requests.get(photo).content)
+            f.close()
+
+
+
+
+
+
+
+class SS2(QtGui.QLabel):
+    print "SS running"
+
 
     def __init__(self, parent, rect, myname):
         self.myname = myname
@@ -616,9 +735,6 @@ class SS2(QtGui.QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignCenter)
 
     def startPhoto(self, interval):
-        print "startphoto interval IS"
-        print (str(interval))
-        #print "method start called vai chamar run_ss"
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss2)
         self.timer.start(1000 * interval + random.uniform(1, 10))
@@ -632,31 +748,27 @@ class SS2(QtGui.QLabel):
             pass
 
     def run_ss2(self):
-        print "run_ss2 method called "
-        #print "vai chamar get_images dentro do methodo run_ss"
         self.get_images()
-        #print "vai chamar get_images dentro do methodo run_ss"
         self.switch_image()
 
 
 
     def switch_image(self):
-        #print "switch_image method called"
         if self.img_list:
             if not self.pause:
-                #print "not paused"
                 self.count += self.img_inc
-                #print "numero de imagens"
-                #print (str(self.count))
                 if self.count >= len(self.img_list):
                     self.count = 0
                     #print "valor colocado a 0"
                 self.show_image(self.img_list[self.count])
+                #numero da photo no array
+                print ((self.img_list[self.count])[-5:])[:1]
+                valor = int(((self.img_list[self.count])[-5:])[:1])
+                photoFinished(valor)
                 self.img_inc = 1
 
     def show_image(self, image):
         image = QtGui.QImage(image)
-        print "setting image"
 
         bg = QtGui.QPixmap.fromImage(image)
         self.setPixmap(bg.scaled(
@@ -666,6 +778,7 @@ class SS2(QtGui.QLabel):
 
     def get_images(self):
             self.get_local(Config.photos)
+
 
 
     def play_pause(self):
@@ -681,8 +794,6 @@ class SS2(QtGui.QLabel):
         self.timer.start()
 
     def get_local(self, path):
-        global numero
-        print (str(path))
 
         try:
             dirContent = os.listdir(path)
@@ -691,161 +802,30 @@ class SS2(QtGui.QLabel):
 
         for each in dirContent:
             fullFile = os.path.join(path, each)
-            numero = (str(fullFile)[-5:])
-            numero = numero[:1]
-            print "O NUMERO E"
-            print numero
-            print nomes
-            teste = nomes[int(numero)]
-            print "TESTEEEE"
-            print teste
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
 
 
-class Fetch():
+
+def pessoa(nome, photo, date ,id ,age):
 
 
+    global dicionario
 
-    def startFetching(self, interval):
-        print "interval fetch"
-        print (str(interval))
-        print "startFetching"
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.run_ss3)
-        self.timer.start(1000 * interval + random.uniform(1, 10))
-        self.run_ss3()
+    dicionario = {
+        "name" : nome,
+        "photo" : photo,
+        "date" : date,
+        "id" : id,
+        "age" : age
 
-    def stop(self):
-        try:
-            self.timer.stop()
-            self.timer = None
-        except Exception:
-            pass
+        }
 
-    def run_ss3(self):
-        print "run_ss3 method called "
-        #print "vai chamar get_images dentro do methodo run_ss"
-        self.fetch_photos()
-        #print "vai chamar get_images dentro do methodo run_ss"
-        #self.switch_photo()
+    listaPessoas.append(dicionario)
+    #print dicionario
+    #print listaPessoas
 
-
-
-    def fetch_photos(self):
-        print "fetching"
-        source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale').text
-
-        soup =BeautifulSoup(source, 'html5lib')
-
-        #print(soup.prettify())
-        nomes = ["teste1","teste2","teste3","teste4","teste5"]
-        fotos = []
-        datas = []
-        ids = []
-        ages = []
-        class Pessoa:
-                name = ""
-                photo = ""
-                date = ""
-                id = ""
-        	age = ""
-
-
-        for falecimentos in soup.find_all('span',class_='nome',limit=5):
-        	print(falecimentos.text.strip())
-        	nomes.append(falecimentos.text.strip())
-
-        for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=5):
-        	pattern = r"(?<=url\().*(?='\))"
-        	url = re.search(pattern, result["style"]).group(0)
-        	url= url[1:]
-        #	print (str(url))
-        	fotos.append(str(url))
-
-
-        for obito in soup.find_all('span',class_='idade', limit=5):
-        #       print(obito.text.strip())
-        	datas.append(obito.text.strip())
-
-
-        for result in  soup.find_all('div',class_='f_bloc',limit=5):
-        	for link in result.find_all('a', attrs={'href': re.compile("^https://")}):
-        		idfinal = link.get('href')[-5:]
-        		ids.append(idfinal)
-        #        	print idfinal
-
-
-
-        um = Pessoa()
-        um.name = nomes[0]
-        um.photo = fotos[0]
-        um.date = datas[0]
-        um.id = ids[0]
-        um.age = ""
-
-        dois  = Pessoa()
-        dois.name = nomes[1]
-        dois.photo = fotos[1]
-        dois.date = datas[1]
-        dois.id = ids[1]
-        dois.age = ""
-
-        tres  = Pessoa()
-        tres.name = nomes[2]
-        tres.photo = fotos[2]
-        tres.date = datas[2]
-        tres.id = ids[2]
-        tres.age = ""
-
-
-        for id in ids:
-        #	print id
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
-
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-
-        #print(soup2.prettify())
-
-
-        	for idade in soup2.find_all('span',class_='idade-detail',limit=5):
-                    print (idade.text.strip())
-                    ages.append(idade.text.strip())
-
-
-        um.age = ages[0]
-        dois.age = ages[1]
-        tres.age = ages[2]
-
-        folder = '/home/pi/PiClock/Clock/images/photoshow'
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-        for photo in fotos:
-            i = fotos.index(photo)
-            print str(i)
-            print "PHOOOOO0OOOOOOOOOOOTO"
-            extensao = photo[-3:]
-            if extensao == "peg":
-                extensao = "jpg"
-            print (photo[-3:])
-            nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
-            print nameString
-            f = open(nameString,'wb')
-            f.write(requests.get(photo).content)
-            f.close()
-
-        print (um.name +  " " + um.photo + " " + um.date + " " + um.id + " " + um.age)
-        print (dois.name +  " " + dois.photo + " " + dois.date + " " + dois.id + " " + dois.age)
-        print (tres.name +  " " + tres.photo + " " + tres.date + " " + tres.id + " " + tres.age)
 
 
 
@@ -1433,8 +1413,8 @@ w.setStyleSheet("QWidget { background-color: black;}")
 xscale = float(width) / 1440.0
 yscale = float(height) / 900.0
 
-print ("xscale "  + str(xscale))
-print ("yscale" + str(yscale))
+#print ("xscale "  + str(xscale))
+#print ("yscale" + str(yscale))
 
 frames = []
 framep = 0
@@ -1453,12 +1433,10 @@ if Config.useslideshow:
 
 if Config.downloadPhotos:
     photoRect = QtCore.QRect(3 * xscale , 10 * yscale, 300 * xscale , 275 * yscale)
-    print "está a definir photo no download photos"
     objimage3 = Fetch()
 
 if Config.usephotoshow:
     photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 275 * yscale)
-    print "está a definir photo no usephotoshow"
     objimage2 = SS2(frame1, photoRect, "image2")
 
 
@@ -1619,7 +1597,7 @@ attribution.setStyleSheet("#attribution { " +
                           Config.fontattr +
                           "}")
 attribution.setAlignment(Qt.AlignTop)
-attribution.setGeometry(6 * xscale, 3 * yscale, 100 * xscale, 100)
+attribution.setGeometry(6 * xscale, height - (yscale * 525) - 60, 300 * xscale, 100)
 
 ypos = -25
 wxicon = QtGui.QLabel(foreGround)

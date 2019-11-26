@@ -34,6 +34,7 @@ digital = 1                 # 1 = Digtal Clock, 0 = Analog Clock
 #downloadPhotos
 
 downloadPhotos = 1
+limit = 2
 # usephotoshow
 usephotoshow = 1
 photo_time = 10
