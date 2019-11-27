@@ -6,13 +6,18 @@ import requests
 import cssutils
 import re 
 
-source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cam').text
-
+#source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cam').text
+source = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=38026').text
 soup =BeautifulSoup(source, 'html5lib')
 
 #print(soup.prettify())
 
+soup2 =  soup.find('span',class_='italic')
 
+print soup.find_all('span',class_='italic').get_text()
+
+
+"""
 nomes = []
 fotos = []
 datas = []
@@ -100,3 +105,4 @@ print (tres.name +  " " + tres.photo + " " + tres.date + " " + tres.id + " " + t
 
 
 
+"""

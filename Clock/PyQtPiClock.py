@@ -34,7 +34,7 @@ sys.dont_write_bytecode = True
 
 from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # NOQA
 
-#File ApiKeys with tokens to access the weather and radar data 
+#File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
 
 #Second by second clock definition
@@ -141,7 +141,7 @@ def tick():
         datex.setText(ds.title())
         datex2.setText(ds2.title())
 
-#Internal temperature definition 
+#Internal temperature definition
 def tempfinished():
     global tempreply, temp
     if tempreply.error() != QNetworkReply.NoError:
@@ -169,7 +169,7 @@ def tempfinished():
                     s += ' ' + tk + ':' + tempdata['temps'][tk]
     temp.setText(s)
 
-#Unit onversions 
+#Unit onversions
 def tempm(f):
     return (f - 32) / 1.8
 
@@ -185,7 +185,7 @@ def pressi(f):
 def heightm(f):
     return f * 25.4
 
-#Moon Phases 
+#Moon Phases
 def phase(f):
     pp = Config.Lmoon1          # 'New Moon'
     if (f > 0.9375):
@@ -206,7 +206,7 @@ def phase(f):
             pp = Config.Lmoon2  # 'Waxing Crescent'
     return pp
 
-#Wind bearing 
+#Wind bearing
 def bearing(f):
     wd = 'N'
     if (f > 22.5):
@@ -238,31 +238,38 @@ def gettemp():
     tempreply = manager.get(r)
     tempreply.finished.connect(tempfinished)
 
-#Define text for labels of obituary section after obituary photo defined 
+#Define text for labels of obituary section after obituary photo defined
 
 ###To change name of method and variables inside
-### to change name of attribution label
-###To conclude with remaining labels 
+###To conclude with remaining labels
 
-def photoFinished(numero):
-        global attribution
+def obituaryPhotoDisplayFinished(photoNumber):
 
-        print "photofinished"
-        individuo = listaPessoas[numero]
-        Nome = individuo["age"]
-        print "Nome"
-        print Nome
+        obituaryPerson = obituaryList[photoNumber]
+        obituaryPersonNameLabel.setText(obituaryPerson["name"])
 
-        attribution.setText(Nome)
 
-#Definition of weather conditions after weatehr request 
+        obituaryPersonDateAndAgeLabel.setText(obituaryPerson["date"] + "   " + "Idade: " + obituaryPerson["age"])
+
+        #Remove 17 characters from end, ", vale de cambra"
+        obituaryPersonAdressLabel.setText(obituaryPerson["adress"][:-17])
+
+        SepararFuneral1 = obituaryPerson["funeral"][:-19]
+        SepararFuneral2 = obituaryPerson["funeral"][-17:]
+        print SepararFuneral1
+        print SepararFuneral2
+
+        obituaryPersonFuneralLabel.setText(SepararFuneral1 + "\n" + SepararFuneral2 )
+
+
+
+#Definition of weather conditions after weatehr request
 def wxfinished():
     global wxreply, wxdata
     global wxicon, temper, wxdesc, press, humidity
     global wind, wind2, wdate, bottom, forecast
     global wxicon2, temper2, wxdesc
 
-    #attribution.setText("teste")
     attribution2.setText("")
 
     wxstr = str(wxreply.readAll())
@@ -452,14 +459,14 @@ def getwx():
     wxreply = manager.get(r)
     wxreply.finished.connect(wxfinished)
 
-#Get weatehr data 
+#Get weatehr data
 def getallwx():
     getwx()
 
 
 #START FUNCTION
-#will request to update all weatehr, inside temperature, run clock, all start all slideshows 
-#important to define order of methods 
+#will request to update all weatehr, inside temperature, run clock, all start all slideshows
+#important to define order of methods
 def qtstart():
     global ctimer, wxtimer, temptimer
     global manager
@@ -498,7 +505,7 @@ def qtstart():
         objimage1.start(Config.slide_time)
 
 ###Change name of donwloadPhotos
-    if Config.downloadPhotos:
+    if Config.obituaryPhotos:
 ###Change name of time_to_fetch to time_to_scape_obituary
         objimage3.startFetching(Config.time_to_fetch)
 
@@ -595,7 +602,7 @@ class SS(QtGui.QLabel):
                     self.img_list.append(fullFile)
 
 
-#Class to fetch all data 
+#Class to fetch all data
 ##To change name to Scrape_obituary
 class Fetch():
 
@@ -622,7 +629,11 @@ class Fetch():
     def fetch_photos(self):
         print "Fetching"
 	#Obituary source
-	### To change to config file 
+	### To change to config file
+        #VLC
+        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
+
+        #VILA CHA
         source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
@@ -633,7 +644,9 @@ class Fetch():
         global datas
         global ids
         global ages
-        global listaPessoas
+        global adress
+        global obituaryList
+        global funeral
 
 
         nomes = []
@@ -641,8 +654,9 @@ class Fetch():
         datas = []
         ids = []
         ages = []
-        listaPessoas = []
-
+        adress = []
+        obituaryList = []
+        funeral = []
 
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
         	nomes.append(falecimentos.text)
@@ -663,25 +677,32 @@ class Fetch():
         		idfinal = link.get('href')[-5:]
         		ids.append(idfinal)
 
+        for local in soup.find_all('span',class_='local',limit=Config.limit):
+        	adress.append(local.text)
+
 
         for id in ids:
+
         	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
 
         	soup2 =BeautifulSoup(soure, 'html5lib')
 
-
-
         	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
                     ages.append(idade.text.strip())
 
-	#To pass each person collected to method "pessoa"
-        for index, nome in enumerate(nomes):
-            print (index, nome)
-            print nomes[index]
-            print fotos[index]
-            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index])
+        for id in ids:
 
-		
+        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+
+        	soup2 =BeautifulSoup(soure, 'html5lib')
+
+		funeral.append(soup2.find_all('span',class_='italic')[-1].get_text())
+
+	    #To pass each person collected to method "pessoa"
+        for index, nome in enumerate(nomes):
+            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
+
+
         #Deletes all folder pictures to be replaced by new
 	### To change to delete before creating new
         folder = '/home/pi/PiClock/Clock/images/photoshow'
@@ -696,11 +717,11 @@ class Fetch():
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
         #Download of new updated pictures of obituary
-	###To change to delete and create 
+	###To change to delete and create
         for photo in fotos:
             i = fotos.index(photo)
 	    #to get picture extension last 3 characters
-	    #will receive jpeg or png- Idea is to save all in jpg 
+	    #will receive jpeg or png- Idea is to save all in jpg
             extensao = photo[-3:]
 	    #to convert jpeg to jpg
             if extensao == "peg":
@@ -765,11 +786,10 @@ class SS2(QtGui.QLabel):
                 self.show_image(self.img_list[self.count])
 		#to get number of photo based on saved name
 		#select last 5 characters, remove the . and extension (3chars)
-                #print ((self.img_list[self.count])[-5:])[:1]
-		###change name of variable
+        #print ((self.img_list[self.count])[-5:])[:1]
 		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
-                valor = int(((self.img_list[self.count])[-5:])[:1])
-                photoFinished(valor)
+                obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
+                obituaryPhotoDisplayFinished(obituaryPhotoNumber)
                 self.img_inc = 1
 
     def show_image(self, image):
@@ -812,11 +832,11 @@ class SS2(QtGui.QLabel):
                     self.img_list.append(fullFile)
 
 
-#Method do receive obituary persons 1 by 1 and convert it into dictionary 
+#Method do receive obituary persons 1 by 1 and convert it into dictionary
 #Create list with all dictinary
-#List will be ordered according scrapping 
+#List will be ordered according scrapping
 ### To rework, is it neede d all conversion from array do dict.......
-def pessoa(nome, photo, date, id, age):
+def pessoa(nome, photo, date, id, age,adress,funeral):
 
 
     global dicionario
@@ -826,11 +846,13 @@ def pessoa(nome, photo, date, id, age):
         "photo" : photo,
         "date" : date,
         "id" : id,
-        "age" : age
-
+        "age" : age,
+        "adress" : adress,
+        "funeral" : funeral
         }
 
-    listaPessoas.append(dicionario)
+    print dicionario
+    obituaryList.append(dicionario)
 
 
 #Radar definition
@@ -1174,7 +1196,7 @@ class Radar(QtGui.QLabel):
 def realquit():
     QtGui.QApplication.exit(0)
 
-#stop all items 
+#stop all items
 def myquit(a=0, b=0):
     global objradar1, objradar2, objradar3, objradar4
     global ctimer, wtimer, temptimer
@@ -1192,12 +1214,12 @@ def myquit(a=0, b=0):
     if Config.usephotoshow:
         objimage2.stop()
 
-    if Config.downloadPhotos:
+    if Config.obituaryPhotos:
         objimage3.stop()
 
     QtCore.QTimer.singleShot(30, realquit)
 
-#Related with radar 
+#Related with radar
 def fixupframe(frame, onoff):
     for child in frame.children():
         if isinstance(child, Radar):
@@ -1222,7 +1244,7 @@ def nextframe(plusminus):
     fixupframe(frames[framep], True)
 
 
-#Main class to listem for keyboarda nd click modification 
+#Main class to listem for keyboarda nd click modification
 class myMain(QtGui.QWidget):
 
     def keyPressEvent(self, event):
@@ -1275,7 +1297,7 @@ if not os.path.isfile(configname + ".py"):
 Config = __import__(configname)
 
 # define default values for new/optional config variables.
-###To add new values added to config file 
+###To add new values added to config file
 
 try:
     Config.location
@@ -1390,7 +1412,7 @@ try:
 except AttributeError:
     pass
 
-#Variables 
+#Variables
 lastmin = -1
 lastday = -1
 pdy = ""
@@ -1425,7 +1447,7 @@ yscale = float(height) / 900.0
 #print ("xscale "  + str(xscale))
 #print ("yscale" + str(yscale))
 
-#PyQt Desings 
+#PyQt Desings
 frames = []
 framep = 0
 
@@ -1441,12 +1463,11 @@ if Config.useslideshow:
     imgRect = QtCore.QRect(310 * xscale , 120, width - (620 * xscale) , height-120)
     objimage1 = SS(frame1, imgRect, "image1")
 
-if Config.downloadPhotos:
-    photoRect = QtCore.QRect(3 * xscale , 10 * yscale, 300 * xscale , 275 * yscale)
+if Config.obituaryPhotos:
     objimage3 = Fetch()
 
 if Config.usephotoshow:
-    photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 275 * yscale)
+    photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 200 * yscale)
     objimage2 = SS2(frame1, photoRect, "image2")
 
 
@@ -1596,29 +1617,64 @@ datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
 datey2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datey2.setGeometry(800 * xscale, 840 * yscale, 640 * xscale, 100)
 
-###Chage name to obituaryName
-attribution = QtGui.QLabel(foreGround)
-attribution.setObjectName("attribution")
-attribution.setStyleSheet("#attribution { " +
+obituaryPersonNameLabel = QtGui.QLabel(foreGround)
+obituaryPersonNameLabel.setObjectName("obituaryPersonNameLabel")
+obituaryPersonNameLabel.setStyleSheet("#obituaryPersonNameLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(12 * xscale)) +
+                          str(int(15 * xscale)) +
                           "px; " +
-                          Config.fontattr +
+                          Config.fontattr + "font-weight: bold;" +
                           "}")
-attribution.setAlignment(Qt.AlignTop)
-attribution.setGeometry(6 * xscale, height - (yscale * 525) - 60, 300 * xscale, 100)
+obituaryPersonNameLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+obituaryPersonNameLabel.setGeometry(6 * xscale, 545 * yscale , 300 * xscale, 100)
 
-###Change deffine all other obituary labels 
+###Change deffine all other obituary labels
+obituaryPersonDateAndAgeLabel = QtGui.QLabel(foreGround)
+obituaryPersonDateAndAgeLabel.setObjectName("obituaryPersonDateAndAgeLabel")
+obituaryPersonDateAndAgeLabel.setStyleSheet("#obituaryPersonDateAndAgeLabel { " +
+                          " background-color: transparent; color: " +
+                          Config.textcolor +
+                          "; font-size: " +
+                          str(int(16 * xscale)) +
+                          "px; " +
+                          Config.fontattr + "font-weight: bold;" +
+                          "}")
+obituaryPersonDateAndAgeLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+obituaryPersonDateAndAgeLabel.setGeometry(6 * xscale, 557 * yscale , 300 * xscale, 100)
 
+obituaryPersonAdressLabel = QtGui.QLabel(foreGround)
+obituaryPersonAdressLabel.setObjectName("obituaryPersonAdressLabel")
+obituaryPersonAdressLabel.setStyleSheet("#obituaryPersonAdressLabel { " +
+                          " background-color: transparent; color: " +
+                          Config.textcolor +
+                          "; font-size: " +
+                          str(int(16 * xscale)) +
+                          "px; " +
+                          Config.fontattr + "font-weight: bold;" +
+                          "}")
+obituaryPersonAdressLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+obituaryPersonAdressLabel.setGeometry(6 * xscale, 554 * yscale , 300 * xscale, 100)
 
+obituaryPersonFuneralLabel = QtGui.QLabel(foreGround)
+obituaryPersonFuneralLabel.setObjectName("obituaryPersonFuneralLabel")
+obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
+                          " background-color: transparent; color: " +
+                          Config.textcolor +
+                          "; font-size: " +
+                          str(int(16 * xscale)) +
+                          "px; " +
+                          Config.fontattr + "font-weight: bold;" +
+                          "}")
+obituaryPersonFuneralLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+obituaryPersonFuneralLabel.setGeometry(6 * xscale, 583 * yscale , 300 * xscale, 200)
 
 ypos = -25
 wxicon = QtGui.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
-wxicon.setGeometry(0 * xscale, 57.12 * yscale, 150 * xscale, 150 * yscale)
+wxicon.setGeometry(0 * xscale, 5712 * yscale, 150 * xscale, 150 * yscale)
 
 attribution2 = QtGui.QLabel(frame2)
 attribution2.setObjectName("attribution2")
@@ -1720,7 +1776,7 @@ wind.setObjectName("wind")
 wind.setStyleSheet("#wind { background-color: transparent; color: " +
                    Config.textcolor +
                    "; font-size: " +
-                   str(int(20 * xscale)) +
+                   str(int(18 * xscale)) +
                    "px; " +
                    Config.fontattr +
                    "}")
@@ -1756,7 +1812,7 @@ wdate.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 bottom = QtGui.QLabel(foreGround)
 bottom.setObjectName("bottom")
 bottom.setStyleSheet("#bottom { font-family:sans-serif; color: " +
-                     Config.textcolor2 +
+                     Config.textcolor +
                      "; background-color: transparent; font-size: " +
                      str(int(25 * xscale)) +
                      "px; " +

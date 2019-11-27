@@ -17,7 +17,7 @@ squares1 = 'images/squares1-jean.png'
 squares2 = 'images/squares2-jean.png'
 icons = 'icons-darkblue'
 textcolor = '#ffffff'
-textcolor2 = '#ffffff'
+textcolor2 = '#000000'
 clockface = 'images/clockface3.png'
 hourhand = 'images/hourhand.png'
 minhand = 'images/minhand.png'
@@ -33,14 +33,14 @@ digital = 1                 # 1 = Digtal Clock, 0 = Analog Clock
 
 #downloadPhotos
 
-downloadPhotos = 1
-limit = 2
+obituaryPhotos = 1
+limit = 6
 # usephotoshow
 usephotoshow = 1
 photo_time = 10
 photos = 'images/photoshow'
 photo_bg_color = '#ffffff'
-time_to_fetch = 140
+time_to_fetch = 100
 
 # Goes with light blue config (like the default one)
 digitalcolor = "#ffffff"
