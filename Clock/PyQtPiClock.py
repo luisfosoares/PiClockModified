@@ -256,8 +256,8 @@ def obituaryPhotoDisplayFinished(photoNumber):
 
         SepararFuneral1 = obituaryPerson["funeral"][:-19]
         SepararFuneral2 = obituaryPerson["funeral"][-17:]
-        print SepararFuneral1
-        print SepararFuneral2
+#        print SepararFuneral1
+#        print SepararFuneral2
 
         obituaryPersonFuneralLabel.setText(SepararFuneral1 + "\n" + SepararFuneral2 )
 
@@ -631,10 +631,10 @@ class Fetch():
 	#Obituary source
 	### To change to config file
         #VLC
-        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
+        source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
 
         #VILA CHA
-        source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
 
@@ -696,7 +696,7 @@ class Fetch():
 
         	soup2 =BeautifulSoup(soure, 'html5lib')
 
-		funeral.append(soup2.find_all('span',class_='italic')[-1].get_text())
+		funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
 
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
@@ -1674,7 +1674,7 @@ ypos = -25
 wxicon = QtGui.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
-wxicon.setGeometry(0 * xscale, 5712 * yscale, 150 * xscale, 150 * yscale)
+wxicon.setGeometry(0 * xscale, 57.12 * yscale, 150 * xscale, 150 * yscale)
 
 attribution2 = QtGui.QLabel(frame2)
 attribution2.setObjectName("attribution2")

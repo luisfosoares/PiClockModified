@@ -1,0 +1,1588 @@
+/usr/local/lib/python2.7/dist-packages/bs4/element.py:16: UserWarning: The soupsieve package is not installed. CSS selectors cannot be used.
+  'The soupsieve package is not installed. CSS selectors cannot be used.'
+Fetch running 
+SS running
+startFetching
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+{'name': u'ARMINDA TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_cc43c4599a6ffac2d405695c59c3140f.jpeg', 'age': u'95 anos', 'date': u'\xd3bito: 21-11-2019', 'funeral': u'S\xe1bado, dia 23 de Novembro de 2019, Pelas 10:30 Horas', 'adress': u'\nCEPELOS, VALE DE CAMBRA ', 'id': u'39446'}
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Fetching
+{'name': u'MANUEL JOS\xc9 CORREIA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_e12e90d521e5fa925d0b824d6302e456.png', 'age': u'79 anos', 'date': u'\xd3bito: 28-11-2019', 'funeral': u'Sexta-feira, dia 29 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nJUNQUEIRA, VALE DE CAMBRA ', 'id': u'39663'}
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+QPixmap::scaled: Pixmap is a null pixmap
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+Fetching
+{'name': u'MANUEL JOS\xc9 CORREIA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_e12e90d521e5fa925d0b824d6302e456.png', 'age': u'79 anos', 'date': u'\xd3bito: 28-11-2019', 'funeral': u'Sexta-feira, dia 29 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nJUNQUEIRA, VALE DE CAMBRA ', 'id': u'39663'}
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+Fetching
+{'name': u'MANUEL JOS\xc9 CORREIA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_e12e90d521e5fa925d0b824d6302e456.png', 'age': u'79 anos', 'date': u'\xd3bito: 28-11-2019', 'funeral': u'Sexta-feira, dia 29 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nJUNQUEIRA, VALE DE CAMBRA ', 'id': u'39663'}
+{'name': u'ALCINDA TAVARES DE PINA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_52ee98bac745d4812a2454ca002d602c.jpeg', 'age': u'82 anos', 'date': u'\xd3bito: 27-11-2019', 'funeral': u'Quinta-feira, dia 28 de Novembro de 2019, Pelas 16:30 Horas', 'adress': u'\nS\xc3O PEDRO DE CASTEL\xd5ES, VALE DE CAMBRA ', 'id': u'39648'}
+{'name': u'MANUEL DOMINGOS DE BASTOS TAVARES', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_db3225636b4f445d212cc2d7ec756d37.png', 'age': u'72 anos', 'date': u'\xd3bito: 25-11-2019', 'funeral': u'Ter\xe7a-feira, dia 26 de Novembro de 2019, Pelas 11:00 Horas', 'adress': u'\nAR\xd5ES, VALE DE CAMBRA ', 'id': u'39550'}
+{'name': u'AUGUSTA MARTINS', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_03c035b9d605e4fb3d682ccffadd4d86.jpeg', 'age': u'78 anos', 'date': u'\xd3bito: 23-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39510'}
+{'name': u'LUC\xcdLIA DA SILVA BRAND\xc3O', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_af7b16d436f3f25669c1cb7d2baca8c7.jpeg', 'age': u'73 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nMACIEIRA DE CAMBRA, VALE DE CAMBRA ', 'id': u'39472'}
+{'name': u'ANT\xd3NIO SOARES DE PAIVA', 'photo': 'https://www.infofunerais.pt/image_temp/123X98_14938e9e704e9abf06a65208952f53ce.png', 'age': u'78 anos', 'date': u'\xd3bito: 22-11-2019', 'funeral': u'Domingo, dia 24 de Novembro de 2019, Pelas 15:00 Horas', 'adress': u'\nVILA CH\xc3, VALE DE CAMBRA ', 'id': u'39458'}
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+Traceback (most recent call last):
+  File "PyQtPiClock.py", line 954, in rtick
+    f = self.frameImages[self.displayedFrame]
+IndexError: list index out of range
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
+QPixmap::scaled: Pixmap is a null pixmap
