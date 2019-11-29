@@ -40,7 +40,7 @@ usephotoshow = 1
 photo_time = 10
 photos = 'images/photoshow'
 photo_bg_color = '#ffffff'
-time_to_fetch = 100
+time_to_fetch = 120
 
 # Goes with light blue config (like the default one)
 digitalcolor = "#ffffff"
@@ -61,8 +61,8 @@ digitalformat2 = "{0:%H:%M:%S}"  # Format of the digital time on second screen
 
 usemapbox = 1   # Use Mapbox.com for maps, needs api key (mbapi in ApiKeys.py)
 metric = 1  # 0 = English, 1 = Metric
-radar_refresh = 2      # minutes
-weather_refresh = 2    # minutes
+radar_refresh =  10      # minutes
+weather_refresh = 10    # minutes
 # Wind in degrees instead of cardinal 0 = cardinal, 1 = degrees
 wind_degrees = 0
 

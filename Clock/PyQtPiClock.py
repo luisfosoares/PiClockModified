@@ -703,23 +703,8 @@ class Fetch():
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
 
 
-        #Deletes all folder pictures to be replaced by new
-	### To change to delete before creating new
-        folder = '/home/pi/PiClock/Clock/images/photoshow'
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-        #Download of new updated pictures of obituary
-	###To change to delete and create
-        for photo in fotos:
-            i = fotos.index(photo)
+	    for photo in fotos:
+	        i = fotos.index(photo)
 	    #to get picture extension last 3 characters
 	    #will receive jpeg or png- Idea is to save all in jpg
             extensao = photo[-3:]
@@ -727,6 +712,18 @@ class Fetch():
             if extensao == "peg":
                 extensao = "jpg"
             nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
+            
+            link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
+            print link
+            print os.path.isfile(link)
+            linkReduced = link[-5:]
+            linkReduced2 = linkReduced [:1]
+            print linkReduced2
+            print str(i)
+            if os.path.isfile(link) and linkReduced2==str(i):
+                os.unlink(link)
+            else:
+                print "link not fouuuuuuuuuuuuuuuund"    
             f = open(nameString,'wb')
             f.write(requests.get(photo).content)
             f.close()
