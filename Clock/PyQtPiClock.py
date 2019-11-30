@@ -703,30 +703,28 @@ class Fetch():
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
 
 
-	    for photo in fotos:
-	        i = fotos.index(photo)
+	for photo in fotos:
+	    i = fotos.index(photo)
 	    #to get picture extension last 3 characters
 	    #will receive jpeg or png- Idea is to save all in jpg
-                extensao = photo[-3:]
+            extensao = photo[-3:]
     	    #to convert jpeg to jpg
-                if extensao == "peg":
-                    extensao = "jpg"
-                nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
-            
-                link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
+            if extensao == "peg":
+                extensao = "jpg"
+            link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
                  #print link
                  #print os.path.isfile(link)
-                linkReduced = link[-5:]
-                linkReduced2 = linkReduced [:1]
+            linkReduced = link[-5:]
+            linkReduced2 = linkReduced [:1]
                 #print linkReduced2
                 #print str(i)
-                if linkReduced2==str(i):
-                    os.unlink(link)
-                else:
-                    print "link not fouuuuuuuuuuuuuuuund"    
-                f = open(link,'wb')
-                f.write(requests.get(photo).content)
-                f.close()
+            if linkReduced2==str(i):
+                os.unlink(link)
+	    else:
+                print "link not fouuuuuuuuuuuuuuuund"    
+            f = open(link,'wb')
+            f.write(requests.get(photo).content)
+	    f.close()
 
 
 
