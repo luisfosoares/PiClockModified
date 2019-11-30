@@ -288,40 +288,40 @@ def wxfinished():
     wxdesc2.setText(f['summary'])
 
     if Config.metric:
-        temper.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
-        temper2.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
+        temper.setText('%.1f' % (tempm(f['temperature'])) + u'Â°C')
+        temper2.setText('%.1f' % (tempm(f['temperature'])) + u'Â°C')
         press.setText(Config.LPressure + '%.1f' % f['pressure'] + 'mb')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
         if Config.wind_degrees:
             wd = str(f['windBearing'])
-	# + u'°'
+	# + u'Â°'
         wind.setText(Config.LWind +
                      wd + ' ' +
                      '%.1f' % (speedm(f['windSpeed'])) + 'kmh' +
                      Config.Lgusting +
                      '%.1f' % (speedm(f['windGust'])) + 'kmh')
         wind2.setText(Config.LFeelslike +
-                      '%.1f' % (tempm(f['apparentTemperature'])) + u'°C')
+                      '%.1f' % (tempm(f['apparentTemperature'])) + u'Â°C')
         wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
 # Config.LPrecip1hr + f['precip_1hr_metric'] + 'mm ' +
 # Config.LToday + f['precip_today_metric'] + 'mm')
     else:
-        temper.setText('%.1f' % (f['temperature']) + u'°F')
-        temper2.setText('%.1f' % (f['temperature']) + u'°F')
+        temper.setText('%.1f' % (f['temperature']) + u'Â°F')
+        temper2.setText('%.1f' % (f['temperature']) + u'Â°F')
         press.setText(Config.LPressure + '%.2f' % pressi(f['pressure']) + 'in')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
         if Config.wind_degrees:
-            wd = str(f['windBearing']) + u'°'
+            wd = str(f['windBearing']) + u'Â°'
         wind.setText(Config.LWind +
                      wd + ' ' +
                      '%.1f' % (f['windSpeed']) + 'mph' +
                      Config.Lgusting +
                      '%.1f' % (f['windGust']) + 'mph')
         wind2.setText(Config.LFeelslike +
-                      '%.1f' % (f['apparentTemperature']) + u'°F')
+                      '%.1f' % (f['apparentTemperature']) + u'Â°F')
         wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
 # Config.LPrecip1hr + f['precip_1hr_in'] + 'in ' +
@@ -378,7 +378,7 @@ def wxfinished():
             else:
                 if (paccum > 0.05):
                     s += Config.LRain + '%.0f' % heightm(paccum) + 'mm '
-            s += '%.0f' % tempm(f['temperature']) + u'°C'
+            s += '%.0f' % tempm(f['temperature']) + u'Â°C'
         else:
             if (ptype == 'snow'):
                 if (paccum > 0.05):
@@ -386,7 +386,7 @@ def wxfinished():
             else:
                 if (paccum > 0.05):
                     s += Config.LRain + '%.0f' % paccum + 'in '
-            s += '%.0f' % (f['temperature']) + u'°F'
+            s += '%.0f' % (f['temperature']) + u'Â°F'
 
         wx.setStyleSheet("#wx { font-size: " + str(int(25 * xscale)) + "px; }")
         wx.setText(f['summary'] + "\n" + s)
@@ -634,7 +634,7 @@ class Fetch():
         source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
 
         #VILA CHA
-        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃƒ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
 
@@ -707,26 +707,26 @@ class Fetch():
 	        i = fotos.index(photo)
 	    #to get picture extension last 3 characters
 	    #will receive jpeg or png- Idea is to save all in jpg
-            extensao = photo[-3:]
-	    #to convert jpeg to jpg
-            if extensao == "peg":
-                extensao = "jpg"
-            nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
+                extensao = photo[-3:]
+    	    #to convert jpeg to jpg
+                if extensao == "peg":
+                    extensao = "jpg"
+                nameString =  "/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao)
             
-            link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
-            print link
-            print os.path.isfile(link)
-            linkReduced = link[-5:]
-            linkReduced2 = linkReduced [:1]
-            print linkReduced2
-            print str(i)
-            if os.path.isfile(link) and linkReduced2==str(i):
-                os.unlink(link)
-            else:
-                print "link not fouuuuuuuuuuuuuuuund"    
-            f = open(nameString,'wb')
-            f.write(requests.get(photo).content)
-            f.close()
+                link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
+                 #print link
+                 #print os.path.isfile(link)
+                linkReduced = link[-5:]
+                linkReduced2 = linkReduced [:1]
+                #print linkReduced2
+                #print str(i)
+                if linkReduced2==str(i):
+                    os.unlink(link)
+                else:
+                    print "link not fouuuuuuuuuuuuuuuund"    
+                f = open(link,'wb')
+                f.write(requests.get(photo).content)
+                f.close()
 
 
 
@@ -848,7 +848,7 @@ def pessoa(nome, photo, date, id, age,adress,funeral):
         "funeral" : funeral
         }
 
-    print dicionario
+    #print dicionario
     obituaryList.append(dicionario)
 
 
