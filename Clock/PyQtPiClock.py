@@ -16,6 +16,7 @@ import requests
 import cssutils
 import re
 import shutil
+import glob 
 
 # import urllib
 # import re
@@ -288,40 +289,40 @@ def wxfinished():
     wxdesc2.setText(f['summary'])
 
     if Config.metric:
-        temper.setText('%.1f' % (tempm(f['temperature'])) + u'Â°C')
-        temper2.setText('%.1f' % (tempm(f['temperature'])) + u'Â°C')
+        temper.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
+        temper2.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
         press.setText(Config.LPressure + '%.1f' % f['pressure'] + 'mb')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
         if Config.wind_degrees:
             wd = str(f['windBearing'])
-	# + u'Â°'
+	# + u'°'
         wind.setText(Config.LWind +
                      wd + ' ' +
                      '%.1f' % (speedm(f['windSpeed'])) + 'kmh' +
                      Config.Lgusting +
                      '%.1f' % (speedm(f['windGust'])) + 'kmh')
         wind2.setText(Config.LFeelslike +
-                      '%.1f' % (tempm(f['apparentTemperature'])) + u'Â°C')
+                      '%.1f' % (tempm(f['apparentTemperature'])) + u'°C')
         wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
 # Config.LPrecip1hr + f['precip_1hr_metric'] + 'mm ' +
 # Config.LToday + f['precip_today_metric'] + 'mm')
     else:
-        temper.setText('%.1f' % (f['temperature']) + u'Â°F')
-        temper2.setText('%.1f' % (f['temperature']) + u'Â°F')
+        temper.setText('%.1f' % (f['temperature']) + u'°F')
+        temper2.setText('%.1f' % (f['temperature']) + u'°F')
         press.setText(Config.LPressure + '%.2f' % pressi(f['pressure']) + 'in')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
         if Config.wind_degrees:
-            wd = str(f['windBearing']) + u'Â°'
+            wd = str(f['windBearing']) + u'°'
         wind.setText(Config.LWind +
                      wd + ' ' +
                      '%.1f' % (f['windSpeed']) + 'mph' +
                      Config.Lgusting +
                      '%.1f' % (f['windGust']) + 'mph')
         wind2.setText(Config.LFeelslike +
-                      '%.1f' % (f['apparentTemperature']) + u'Â°F')
+                      '%.1f' % (f['apparentTemperature']) + u'°F')
         wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
 # Config.LPrecip1hr + f['precip_1hr_in'] + 'in ' +
@@ -378,7 +379,7 @@ def wxfinished():
             else:
                 if (paccum > 0.05):
                     s += Config.LRain + '%.0f' % heightm(paccum) + 'mm '
-            s += '%.0f' % tempm(f['temperature']) + u'Â°C'
+            s += '%.0f' % tempm(f['temperature']) + u'°C'
         else:
             if (ptype == 'snow'):
                 if (paccum > 0.05):
@@ -386,7 +387,7 @@ def wxfinished():
             else:
                 if (paccum > 0.05):
                     s += Config.LRain + '%.0f' % paccum + 'in '
-            s += '%.0f' % (f['temperature']) + u'Â°F'
+            s += '%.0f' % (f['temperature']) + u'°F'
 
         wx.setStyleSheet("#wx { font-size: " + str(int(25 * xscale)) + "px; }")
         wx.setText(f['summary'] + "\n" + s)
@@ -606,7 +607,6 @@ class SS(QtGui.QLabel):
 ##To change name to Scrape_obituary
 class Fetch():
 
-    print "Fetch running "
 
     def startFetching(self, interval):
         print "startFetching"
@@ -634,7 +634,7 @@ class Fetch():
         source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
 
         #VILA CHA
-        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃƒ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
 
@@ -704,27 +704,32 @@ class Fetch():
 
 
 	for photo in fotos:
-	    i = fotos.index(photo)
-	    #to get picture extension last 3 characters
-	    #will receive jpeg or png- Idea is to save all in jpg
+            i = fotos.index(photo)
             extensao = photo[-3:]
     	    #to convert jpeg to jpg
             if extensao == "peg":
                 extensao = "jpg"
+		
+	    #link to save new picture
             link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
-                 #print link
-                 #print os.path.isfile(link)
             linkReduced = link[-5:]
             linkReduced2 = linkReduced [:1]
-                #print linkReduced2
-                #print str(i)
-            if linkReduced2==str(i):
-                os.unlink(link)
-	    else:
-                print "link not fouuuuuuuuuuuuuuuund"    
+            
+	    #old picture link
+            fil = glob.glob('/home/pi/PiClock/Clock/images/photoshow/{}*'.format(str(i)))
+	    
+	    #to check for old picture and delete to later replace for new one
+            if linkReduced2==str(i): #check picture number
+		if (fil): #check if folder is not empty
+		    if (os.path.isfile(fil[0])): #pick old picture
+			os.unlink(fil[0]) #delete old picture
+		else:
+		    print "fil is empty"
+            else: 
+                print "Old picture link not found"    
             f = open(link,'wb')
             f.write(requests.get(photo).content)
-	    f.close()
+            f.close()
 
 
 
@@ -733,7 +738,6 @@ class Fetch():
 
 ## Class to run Obituary Slideshow (in the left of screen)
 class SS2(QtGui.QLabel):
-    print "SS running"
 
 
     def __init__(self, parent, rect, myname):
@@ -781,7 +785,7 @@ class SS2(QtGui.QLabel):
                 self.show_image(self.img_list[self.count])
 		#to get number of photo based on saved name
 		#select last 5 characters, remove the . and extension (3chars)
-        #print ((self.img_list[self.count])[-5:])[:1]
+	        #print ((self.img_list[self.count])[-5:])[:1]
 		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
                 obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
                 obituaryPhotoDisplayFinished(obituaryPhotoNumber)
@@ -1658,7 +1662,7 @@ obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(16 * xscale)) +
+                          str(int(15 * xscale)) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
@@ -1669,7 +1673,7 @@ ypos = -25
 wxicon = QtGui.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
-wxicon.setGeometry(0 * xscale, 57.12 * yscale, 150 * xscale, 150 * yscale)
+wxicon.setGeometry(0 * xscale, 65 * yscale, 150 * xscale, 150 * yscale)
 
 attribution2 = QtGui.QLabel(frame2)
 attribution2.setObjectName("attribution2")
