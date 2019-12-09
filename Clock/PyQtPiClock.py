@@ -37,7 +37,7 @@ from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # 
 
 #File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
-
+global objimage2
 #Second by second clock definition
 def tick():
     global hourpixmap, minpixmap, secpixmap
@@ -45,6 +45,7 @@ def tick():
     global lastmin, lastday, lasttimestr
     global clockrect
     global datex, datex2, datey2, pdy
+    global meuBotao
 
     if Config.DateLocale != "":
         try:
@@ -475,7 +476,10 @@ def qtstart():
     global objradar2
     global objradar3
     global objradar4
+    global meuBotao
 
+    meuBotao = False
+    print "Meu botao inicial e: " + str(meuBotao)
 
     getallwx()
 
@@ -607,13 +611,21 @@ class SS(QtGui.QLabel):
 ##To change name to Scrape_obituary
 class Fetch():
 
+    print (datetime.datetime.now())
+
+
 
     def startFetching(self, interval):
         print "startFetching"
-        self.timer = QtCore.QTimer()
+
+    	
+        
+
+	self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss3)
         self.timer.start(1000 * interval + random.uniform(1, 10))
         self.run_ss3()
+	print "new timer, running ss"
 
     def stop(self):
         try:
@@ -627,14 +639,21 @@ class Fetch():
 
 
     def fetch_photos(self):
-        print "Fetching"
+        print "Fetching photos"
+	try:
+	    objimage2.stop()
+            print "stoped"    
+        except:
+            print "impossible to stop maybe 1st time"
+
 	#Obituary source
 	### To change to config file
-        #VLC
-        source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
-
-        #VILA CHA
-        #source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+	if meuBotao == False:
+    	    print "VLC"
+            source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
+	if meuBotao == True:
+            print "VILA CHA"
+            source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
         soup =BeautifulSoup(source, 'html5lib')
 
@@ -730,7 +749,13 @@ class Fetch():
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-
+	print "all photos added"
+	try:
+            print "trying to restart"
+	    print datetime.datetime.now()
+	    objimage2.startPhoto(Config.photo_time)
+        except:
+	    print "not possible to startt"
 
 
 
@@ -759,6 +784,7 @@ class SS2(QtGui.QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignCenter)
 
     def startPhoto(self, interval):
+        print "startPhoto"
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss2)
         self.timer.start(1000 * interval + random.uniform(1, 10))
@@ -768,10 +794,12 @@ class SS2(QtGui.QLabel):
         try:
             self.timer.stop()
             self.timer = None
+	    print "stopped startPhoto"
         except Exception:
             pass
 
     def run_ss2(self):
+	print "startphoto called, get images and switch foto will be called"
         self.get_images()
         self.switch_image()
 
@@ -788,6 +816,7 @@ class SS2(QtGui.QLabel):
 	        #print ((self.img_list[self.count])[-5:])[:1]
 		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
                 obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
+		print "Obituary photo number:" + str(obituaryPhotoNumber)
                 obituaryPhotoDisplayFinished(obituaryPhotoNumber)
                 self.img_inc = 1
 
@@ -824,13 +853,15 @@ class SS2(QtGui.QLabel):
         except OSError:
             print("path '%s' doesn't exists." % path)
 
+	self.img_list = []
         for each in dirContent:
             fullFile = os.path.join(path, each)
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
-
-
+ 
+	print "photos added in img_list"
+	print self.img_list
 #Method do receive obituary persons 1 by 1 and convert it into dictionary
 #Create list with all dictinary
 #List will be ordered according scrapping
@@ -1243,6 +1274,18 @@ def nextframe(plusminus):
     fixupframe(frames[framep], True)
 
 
+def changeState():
+    global meuBotao
+    print "Changing state"
+    if meuBotao == True:
+	print "era Vila Cha"
+	meuBotao = False
+	print "agora e VLC " +str(meuBotao)
+    else:
+	print "era VLC"
+	meuBotao = True
+	print "agora e Vila Cha " +str(meuBotao)
+
 #Main class to listem for keyboarda nd click modification
 class myMain(QtGui.QWidget):
 
@@ -1273,6 +1316,9 @@ class myMain(QtGui.QWidget):
                 objimage1.prev_next(1)
             if event.key() == Qt.Key_F8:  # Play/Pause
                 objimage1.play_pause()
+	    if event.key() == Qt.Key_F10:
+		print "Vai chamar changing state"
+		changeState()
             if event.key() == Qt.Key_F9:  # Foreground Toggle
                 if foreGround.isVisible():
                     foreGround.hide()
