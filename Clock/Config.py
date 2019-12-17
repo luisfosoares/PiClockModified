@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from GoogleMercatorProjection import LatLng
@@ -15,7 +16,7 @@ noaastream = 'http://www.urberg.net:8000/tim273/edina'
 background = 'images/black2.png'
 squares1 = 'images/squares1-jean.png'
 squares2 = 'images/squares2-jean.png'
-icons = 'icons-darkblue'
+icons = 'icons-white'
 textcolor = '#ffffff'
 textcolor2 = '#000000'
 clockface = 'images/clockface3.png'
@@ -37,10 +38,10 @@ obituaryPhotos = 1
 limit = 6
 # usephotoshow
 usephotoshow = 1
-photo_time = 10
+photo_time = 30
 photos = 'images/photoshow'
 photo_bg_color = '#ffffff'
-time_to_fetch = 120
+time_to_fetch = 1800
 
 # Goes with light blue config (like the default one)
 digitalcolor = "#ffffff"
@@ -89,7 +90,7 @@ Language = "PT"
 DateLocale = 'PT'
 
 # Language specific wording
-LPressure = "Press�o: "
+LPressure = "Pressao: "
 LHumidity = "Humidade: "
 LWind = "Vento: "
 Lgusting = " Rajadas: "
@@ -102,11 +103,11 @@ LMoonPhase = " Lua:"
 LInsideTemp = "Temperatura interior: "
 LRain = " Chuva: "
 LSnow = " Neve: "
-Lmoon1 = 'Lua nova'
+Lmoon1 = 'Quarto Minguante'
 Lmoon2 = 'Lua nova'
 Lmoon3 = 'Quarto Crescente'
 Lmoon4 = 'Quarto Crescente'
-Lmoon5 = 'Lua cheia'
+Lmoon5 = 'Quarto Crescente'
 Lmoon6 = 'Lua cheia'
 Lmoon7 = 'Quarto Minguante'
 Lmoon8 = 'Quarto Minguante'
