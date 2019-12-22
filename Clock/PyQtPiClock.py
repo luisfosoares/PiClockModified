@@ -566,6 +566,7 @@ class SS(QtGui.QLabel):
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
                     self.count = 0
+		print str(self.img_list[self.count])
                 self.show_image(self.img_list[self.count])
                 self.img_inc = 1
 
@@ -599,7 +600,7 @@ class SS(QtGui.QLabel):
             dirContent = os.listdir(path)
         except OSError:
             print("path '%s' doesn't exists." % path)
-
+	self.img_list = []
         for each in dirContent:
             fullFile = os.path.join(path, each)
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
@@ -861,7 +862,7 @@ class SS2(QtGui.QLabel):
                     self.img_list.append(fullFile)
  
 	print "photos added in img_list"
-	print self.img_list
+#	print self.img_list
 #Method do receive obituary persons 1 by 1 and convert it into dictionary
 #Create list with all dictinary
 #List will be ordered according scrapping
