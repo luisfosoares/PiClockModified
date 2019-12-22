@@ -566,7 +566,7 @@ class SS(QtGui.QLabel):
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
                     self.count = 0
-		print str(self.img_list[self.count])
+		#print str(self.img_list[self.count])
                 self.show_image(self.img_list[self.count])
                 self.img_inc = 1
 
@@ -1326,9 +1326,9 @@ class myMain(QtGui.QWidget):
                 else:
                     foreGround.show()
 
-    def mousePressEvent(self, event):
-        if type(event) == QtGui.QMouseEvent:
-            nextframe(1)
+#    def mousePressEvent(self, event):
+#        if type(event) == QtGui.QMouseEvent:
+#            nextframe(1)
 
 
 configname = 'Config'
@@ -1720,7 +1720,7 @@ ypos = -25
 wxicon = QtGui.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
-wxicon.setGeometry(0 * xscale, 65 * yscale, 150 * xscale, 150 * yscale)
+wxicon.setGeometry(0 * xscale, 80 * yscale, 150 * xscale, 140 * yscale)
 
 attribution2 = QtGui.QLabel(frame2)
 attribution2.setObjectName("attribution2")
@@ -1776,7 +1776,7 @@ temper.setStyleSheet("#temper { background-color: transparent; color: " +
                      Config.fontattr +
                      "}")
 temper.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-temper.setGeometry(67.49 * xscale, 105.46 * yscale, 300 * xscale, 100)
+temper.setGeometry(70 * xscale, 105.46 * yscale, 300 * xscale, 100)
 
 temper2 = QtGui.QLabel(frame2)
 temper2.setObjectName("temper2")
@@ -1788,7 +1788,7 @@ temper2.setStyleSheet("#temper2 { background-color: transparent; color: " +
                       Config.fontattr +
                       "}")
 temper2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-temper2.setGeometry(125 * xscale, 780 * yscale, 300 * xscale, 100)
+temper2.setGeometry(140 * xscale, 780 * yscale, 300 * xscale, 100)
 
 ypos += 80
 press = QtGui.QLabel(foreGround)
@@ -1896,7 +1896,7 @@ for i in range(0, 9):
 
     icon = QtGui.QLabel(lab)
     icon.setStyleSheet("#icon { background-color: transparent; }")
-    icon.setGeometry(0, 0, 100 * xscale, 100 * yscale)
+    icon.setGeometry(0, 5, 95 * xscale, 95 * yscale)
     icon.setObjectName("icon")
 
     wx = QtGui.QLabel(lab)
