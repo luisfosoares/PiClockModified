@@ -255,13 +255,18 @@ def obituaryPhotoDisplayFinished(photoNumber):
 
         #Remove 17 characters from end, ", vale de cambra"
         obituaryPersonAdressLabel.setText(obituaryPerson["adress"][:-17])
-
-        SepararFuneral1 = obituaryPerson["funeral"][:-19]
-        SepararFuneral2 = obituaryPerson["funeral"][-17:]
+        
+        print (str(len(obituaryPerson["funeral"])))
+        
+        if (len(obituaryPerson["funeral"]) == 21):
+            obituaryPersonFuneralLabel.setText(obituaryPerson["funeral"])
+        else:
+            SepararFuneral1 = obituaryPerson["funeral"][:-19]
+            SepararFuneral2 = obituaryPerson["funeral"][-17:]
 #        print SepararFuneral1
 #        print SepararFuneral2
 
-        obituaryPersonFuneralLabel.setText(SepararFuneral1 + "\n" + SepararFuneral2 )
+            obituaryPersonFuneralLabel.setText(SepararFuneral1 + "\n" + SepararFuneral2 )
 
 
 
@@ -716,7 +721,11 @@ class Fetch():
 
         	soup2 =BeautifulSoup(soure, 'html5lib')
 
-		funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
+       	 	try:
+           	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
+
+	        except:
+            	    funeral.append(str("Data e Hora a definir"))
 
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
