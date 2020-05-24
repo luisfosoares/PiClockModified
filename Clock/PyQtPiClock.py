@@ -16,7 +16,7 @@ import requests
 import cssutils
 import re
 import shutil
-import glob 
+import glob
 
 # import urllib
 # import re
@@ -255,11 +255,11 @@ def obituaryPhotoDisplayFinished(photoNumber):
 
         #Remove 17 characters from end, ", vale de cambra"
         obituaryPersonAdressLabel.setText(obituaryPerson["adress"][:-17])
-        
+
         print (str(len(obituaryPerson["funeral"])))
-        
-        if (len(obituaryPerson["funeral"]) == 21):
-            obituaryPersonFuneralLabel.setText(obituaryPerson["funeral"])
+
+        if (len(obituaryPerson["funeral"]) < 45):
+            obituaryPersonFuneralLabel.setText(obituaryPerson["funeral"] + "\n" + "Hora a definir")
         else:
             SepararFuneral1 = obituaryPerson["funeral"][:-19]
             SepararFuneral2 = obituaryPerson["funeral"][-17:]
@@ -624,8 +624,8 @@ class Fetch():
     def startFetching(self, interval):
         print "startFetching"
 
-    	
-        
+
+
 
 	self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss3)
@@ -648,7 +648,7 @@ class Fetch():
         print "Fetching photos"
 	try:
 	    objimage2.stop()
-            print "stoped"    
+            print "stoped"
         except:
             print "impossible to stop maybe 1st time"
 
@@ -725,7 +725,7 @@ class Fetch():
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
 
 	        except:
-            	    funeral.append(str("Data e Hora a definir"))
+            	    funeral.append(str("Data a definir"))
 
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
@@ -738,15 +738,15 @@ class Fetch():
     	    #to convert jpeg to jpg
             if extensao == "peg":
                 extensao = "jpg"
-		
+
 	    #link to save new picture
             link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
             linkReduced = link[-5:]
             linkReduced2 = linkReduced [:1]
-            
+
 	    #old picture link
             fil = glob.glob('/home/pi/PiClock/Clock/images/photoshow/{}*'.format(str(i)))
-	    
+
 	    #to check for old picture and delete to later replace for new one
             if linkReduced2==str(i): #check picture number
 		if (fil): #check if folder is not empty
@@ -754,8 +754,8 @@ class Fetch():
 			os.unlink(fil[0]) #delete old picture
 		else:
 		    print "fil is empty"
-            else: 
-                print "Old picture link not found"    
+            else:
+                print "Old picture link not found"
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
@@ -869,7 +869,7 @@ class SS2(QtGui.QLabel):
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
- 
+
 	print "photos added in img_list"
 #	print self.img_list
 #Method do receive obituary persons 1 by 1 and convert it into dictionary
