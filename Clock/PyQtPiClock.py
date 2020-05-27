@@ -254,7 +254,8 @@ def obituaryPhotoDisplayFinished(photoNumber):
         obituaryPersonDateAndAgeLabel.setText(obituaryPerson["date"] + "   " + "Idade: " + obituaryPerson["age"])
 
         #Remove 17 characters from end, ", vale de cambra"
-        obituaryPersonAdressLabel.setText(obituaryPerson["adress"][:-17])
+        #was -17 now its -44 --- 27_05_2020
+        obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
 
         print (str(len(obituaryPerson["funeral"])))
 
@@ -1710,7 +1711,7 @@ obituaryPersonAdressLabel.setStyleSheet("#obituaryPersonAdressLabel { " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
 obituaryPersonAdressLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-obituaryPersonAdressLabel.setGeometry(6 * xscale, 554 * yscale , 300 * xscale, 100)
+obituaryPersonAdressLabel.setGeometry(6 * xscale, 570 * yscale , 300 * xscale, 100)
 
 obituaryPersonFuneralLabel = QtGui.QLabel(foreGround)
 obituaryPersonFuneralLabel.setObjectName("obituaryPersonFuneralLabel")
