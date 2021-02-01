@@ -13,21 +13,22 @@ import locale
 import random
 from bs4 import BeautifulSoup
 import requests
-import cssutils
+#import cssutils
 import re
 import shutil
 import glob
 
-# import urllib
+
+import urllib
 # import re
 
-from PyQt4 import QtGui, QtCore, QtNetwork
-from PyQt4.QtGui import QPixmap, QBrush, QColor
-from PyQt4.QtGui import QPainter, QImage, QFont
-from PyQt4.QtCore import QUrl
-from PyQt4.QtCore import Qt
-from PyQt4.QtNetwork import QNetworkReply
-from PyQt4.QtNetwork import QNetworkRequest
+from PyQt5 import QtGui, QtCore, QtNetwork, QtWidgets
+from PyQt5.QtGui import QPixmap, QBrush, QColor
+from PyQt5.QtGui import QPainter, QImage, QFont
+from PyQt5.QtCore import QUrl, QThread, pyqtSignal, QObject, QBuffer
+from PyQt5.QtCore import Qt, QRunnable
+from PyQt5.QtNetwork import QNetworkReply
+from PyQt5.QtNetwork import QNetworkRequest
 from subprocess import Popen
 
 sys.dont_write_bytecode = True
@@ -257,7 +258,7 @@ def obituaryPhotoDisplayFinished(photoNumber):
         #was -17 now its -44 --- 27_05_2020
         obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
 
-        print (str(len(obituaryPerson["funeral"])))
+        ###print (str(len(obituaryPerson["funeral"])))
 
         if (len(obituaryPerson["funeral"]) < 45):
             obituaryPersonFuneralLabel.setText(obituaryPerson["funeral"] + "\n" + "Hora a definir")
@@ -280,9 +281,32 @@ def wxfinished():
 
     attribution2.setText("")
 
-    wxstr = str(wxreply.readAll())
-    wxdata = json.loads(wxstr)
-    f = wxdata['currently']
+    print ("Entra data")
+
+    try:
+        # For Python 3.0 and later
+        from urllib.request import urlopen
+    except ImportError:
+        # Fall back to Python 2's urllib2
+        from urllib2 import urlopen
+
+    myurl=  (str(wxurl))
+    
+    #Try to get weather data online, if not possible use test weather
+    
+    try:
+        response = urlopen(myurl)
+        data = response.read().decode("utf-8")
+        wxdata = json.loads(data)
+        f = wxdata['currently']
+    except:
+        print ("Not possible to colect weather data")
+        
+        with open('weatherSample.txt') as json_file:
+            wxdata = json.load(json_file)
+            f = wxdata['currently']
+
+    
     wxiconpixmap = QtGui.QPixmap(Config.icons + "/" + f['icon'] + ".png")
     wxicon.setPixmap(wxiconpixmap.scaled(
         wxicon.width(), wxicon.height(), Qt.IgnoreAspectRatio,
@@ -353,7 +377,7 @@ def wxfinished():
     for i in range(0, 3):
         f = wxdata['hourly']['data'][i * 3 + 2]
         fl = forecast[i]
-        icon = fl.findChild(QtGui.QLabel, "icon")
+        icon = fl.findChild(QtWidgets.QLabel, "icon")
         wxiconpixmap = QtGui.QPixmap(
             Config.icons + "/" + f['icon'] + ".png")
         icon.setPixmap(wxiconpixmap.scaled(
@@ -361,11 +385,10 @@ def wxfinished():
             icon.height(),
             Qt.IgnoreAspectRatio,
             Qt.SmoothTransformation))
-        wx = fl.findChild(QtGui.QLabel, "wx")
-        day = fl.findChild(QtGui.QLabel, "day")
-	dayText =  ("{0:%A %H:%M%p}".format(datetime.datetime.fromtimestamp(
-            int(f['time']))))
-	day.setText (dayText.title())
+        wx = fl.findChild(QtWidgets.QLabel, "wx")
+        day = fl.findChild(QtWidgets.QLabel, "day")
+        dayText =  ("{0:%A %H:%M%p}".format(datetime.datetime.fromtimestamp(int(f['time']))))
+        day.setText (dayText.title())
         s = ''
         pop = 0
         ptype = ''
@@ -402,18 +425,18 @@ def wxfinished():
     for i in range(3, 9):
         f = wxdata['daily']['data'][i - 3]
         fl = forecast[i]
-        icon = fl.findChild(QtGui.QLabel, "icon")
+        icon = fl.findChild(QtWidgets.QLabel, "icon")
         wxiconpixmap = QtGui.QPixmap(Config.icons + "/" + f['icon'] + ".png")
         icon.setPixmap(wxiconpixmap.scaled(
             icon.width(),
             icon.height(),
             Qt.IgnoreAspectRatio,
             Qt.SmoothTransformation))
-        wx = fl.findChild(QtGui.QLabel, "wx")
-        day = fl.findChild(QtGui.QLabel, "day")
+        wx = fl.findChild(QtWidgets.QLabel, "wx")
+        day = fl.findChild(QtWidgets.QLabel, "day")
         dayText = ("{0:%A}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
-	day.setText (dayText.title())
+        day.setText (dayText.title())
         s = ''
         pop = 0
         ptype = ''
@@ -461,11 +484,8 @@ def getwx():
         str(Config.location.lng)
     wxurl += '?units=us&lang=' + Config.Language.lower()
     wxurl += '&r=' + str(random.random())
-#    print wxurl
-    r = QUrl(wxurl)
-    r = QNetworkRequest(r)
-    wxreply = manager.get(r)
-    wxreply.finished.connect(wxfinished)
+    wxfinished()
+
 
 #Get weatehr data
 def getallwx():
@@ -485,7 +505,7 @@ def qtstart():
     global meuBotao
 
     meuBotao = False
-    print "Meu botao inicial e: " + str(meuBotao)
+    ###print ("Meu botao inicial e: " + str(meuBotao))
 
     getallwx()
 
@@ -496,8 +516,8 @@ def qtstart():
     #objradar1.wxstart()
     objradar2.start(Config.radar_refresh * 60)
     objradar2.wxstart()
-    objradar3.start(Config.radar_refresh * 60)
-    objradar4.start(Config.radar_refresh * 60)
+    #objradar3.start(Config.radar_refresh * 60)
+    #objradar4.start(Config.radar_refresh * 60)
 
     ctimer = QtCore.QTimer()
     ctimer.timeout.connect(tick)
@@ -528,11 +548,11 @@ def qtstart():
 
 
 ## Class to run Main Slideshow (in the center of screen)
-class SS(QtGui.QLabel):
+class SS(QtWidgets.QLabel):
     def __init__(self, parent, rect, myname):
         self.myname = myname
         self.rect = rect
-        QtGui.QLabel.__init__(self, parent)
+        QtWidgets.QLabel.__init__(self, parent)
 
         self.pause = False
         self.count = 0
@@ -606,7 +626,8 @@ class SS(QtGui.QLabel):
             dirContent = os.listdir(path)
         except OSError:
             print("path '%s' doesn't exists." % path)
-	self.img_list = []
+            
+        self.img_list = []
         for each in dirContent:
             fullFile = os.path.join(path, each)
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
@@ -618,21 +639,20 @@ class SS(QtGui.QLabel):
 ##To change name to Scrape_obituary
 class Fetch():
 
-    print (datetime.datetime.now())
+    ###print (datetime.datetime.now())
 
 
 
     def startFetching(self, interval):
-        print "startFetching"
+        ###print ("startFetching")
 
-
-
-
-	self.timer = QtCore.QTimer()
+        self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss3)
         self.timer.start(1000 * interval + random.uniform(1, 10))
         self.run_ss3()
-	print "new timer, running ss"
+        ###print ("new timer, running ss")
+        
+        
 
     def stop(self):
         try:
@@ -646,23 +666,29 @@ class Fetch():
 
 
     def fetch_photos(self):
-        print "Fetching photos"
-	try:
-	    objimage2.stop()
-            print "stoped"
+        ###print ("Fetching photos")
+        try:
+            objimage2.stop()
+            ###print ("stoped")
         except:
-            print "impossible to stop maybe 1st time"
+            print ("impossible to stop maybe 1st time")
 
-	#Obituary source
-	### To change to config file
-	if meuBotao == False:
-    	    print "VLC"
+        #Obituary source
+        ### To change to config file
+        if meuBotao == False:
+            print ("VLC")
+            ###print ("Vai iniciar")
+            print (datetime.datetime.now())
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
-	if meuBotao == True:
-            print "VILA CHA"
+            ###print ("parou") 
+            print (datetime.datetime.now())
+        if meuBotao == True:
+            print ("VILA CHA")
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
-
+        
         soup =BeautifulSoup(source, 'html5lib')
+        
+        
 
 ### To change all names below
         global nomes
@@ -721,19 +747,17 @@ class Fetch():
         	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
 
         	soup2 =BeautifulSoup(soure, 'html5lib')
+        try:
+            funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
 
-       	 	try:
-           	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
-
-	        except:
-            	    funeral.append(str("Data a definir"))
+        except:
+            funeral.append(str("Data a definir"))
 
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
 
-
-	for photo in fotos:
+        for photo in fotos:
             i = fotos.index(photo)
             extensao = photo[-3:]
     	    #to convert jpeg to jpg
@@ -750,36 +774,36 @@ class Fetch():
 
 	    #to check for old picture and delete to later replace for new one
             if linkReduced2==str(i): #check picture number
-		if (fil): #check if folder is not empty
-		    if (os.path.isfile(fil[0])): #pick old picture
-			os.unlink(fil[0]) #delete old picture
-		else:
-		    print "fil is empty"
+                if (fil): #check if folder is not empty
+                    if (os.path.isfile(fil[0])): #pick old picture
+                        os.unlink(fil[0]) #delete old picture
+                else:
+                    print ("fil is empty")
             else:
-                print "Old picture link not found"
+                print ("Old picture link not found")
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-	print "all photos added"
-	try:
-            print "trying to restart"
-	    print datetime.datetime.now()
-	    objimage2.startPhoto(Config.photo_time)
-        except:
-	    print "not possible to startt"
+            ###print ("all photos added")
+            try:
+                ###print ("trying to restart")
+                print (datetime.datetime.now())
+                objimage2.startPhoto(Config.photo_time)
+            except:
+                print ("not possible to startt")
 
 
 
 
 
 ## Class to run Obituary Slideshow (in the left of screen)
-class SS2(QtGui.QLabel):
+class SS2(QtWidgets.QLabel):
 
 
     def __init__(self, parent, rect, myname):
         self.myname = myname
         self.rect = rect
-        QtGui.QLabel.__init__(self, parent)
+        QtWidgets.QLabel.__init__(self, parent)
 
         self.pause = False
         self.count = 0
@@ -795,7 +819,7 @@ class SS2(QtGui.QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignCenter)
 
     def startPhoto(self, interval):
-        print "startPhoto"
+        ###print ("startPhoto")
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss2)
         self.timer.start(1000 * interval + random.uniform(1, 10))
@@ -805,12 +829,12 @@ class SS2(QtGui.QLabel):
         try:
             self.timer.stop()
             self.timer = None
-	    print "stopped startPhoto"
+            print ("stopped startPhoto")
         except Exception:
             pass
 
     def run_ss2(self):
-	print "startphoto called, get images and switch foto will be called"
+        ###print ("startphoto called, get images and switch foto will be called")
         self.get_images()
         self.switch_image()
 
@@ -827,7 +851,7 @@ class SS2(QtGui.QLabel):
 	        #print ((self.img_list[self.count])[-5:])[:1]
 		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
                 obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
-		print "Obituary photo number:" + str(obituaryPhotoNumber)
+                ###print ("Obituary photo number:" + str(obituaryPhotoNumber))
                 obituaryPhotoDisplayFinished(obituaryPhotoNumber)
                 self.img_inc = 1
 
@@ -864,15 +888,32 @@ class SS2(QtGui.QLabel):
         except OSError:
             print("path '%s' doesn't exists." % path)
 
-	self.img_list = []
+        self.img_list = []
         for each in dirContent:
             fullFile = os.path.join(path, each)
             if os.path.isfile(fullFile) and (fullFile.lower().endswith('png')
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
 
-	print "photos added in img_list"
+        ###print ("photos added in img_list")
 #	print self.img_list
+
+def run(user_input, log):
+    text = ""
+    if user_input == "":
+        text = "Please enter a value\n"
+    else:
+        text = "Test"
+
+    QMetaObject.invokeMethod(log,
+                "append", Qt.QueuedConnection, 
+                Q_ARG(str, text))
+                
+
+        
+
+
+
 #Method do receive obituary persons 1 by 1 and convert it into dictionary
 #Create list with all dictinary
 #List will be ordered according scrapping
@@ -895,12 +936,36 @@ def pessoa(nome, photo, date, id, age,adress,funeral):
     #print dicionario
     obituaryList.append(dicionario)
 
+# Step 1: Create a worker class
+class Worker(QObject):
+    #print ("into worker")
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+    
+    
+    def run(self):
+        #print ("Long-running task.")
+
+        self.finished.emit()
+        
+class Worker2(QObject):
+    print ("into worker2")
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+    
+    
+    def run(self):
+        print ("Long-running task222222222222222222222222222.")
+
+        self.finished.emit()
+        
+
 
 #Radar definition
-class Radar(QtGui.QLabel):
+class Radar(QtWidgets.QLabel):
 
     def __init__(self, parent, radar, rect, myname):
-        global xscale, yscale
+        global xscale, yscale , luiss
         self.myname = myname
         self.rect = rect
         self.anim = 5
@@ -908,8 +973,9 @@ class Radar(QtGui.QLabel):
         self.point = radar["center"]
         self.radar = radar
         self.baseurl = self.mapurl(radar, rect)
-#        print "map base url: " + self.baseurl
-        QtGui.QLabel.__init__(self, parent)
+        print ("Inside Radar")
+        print (self.baseurl)
+        QtWidgets.QLabel.__init__(self, parent)
         self.interval = Config.radar_refresh * 60
         self.lastwx = 0
         self.retries = 0
@@ -938,12 +1004,12 @@ class Radar(QtGui.QLabel):
         self.setStyleSheet("#radar { background-color: grey; }")
         self.setAlignment(Qt.AlignCenter)
 
-        self.wwx = QtGui.QLabel(self)
+        self.wwx = QtWidgets.QLabel(self)
         self.wwx.setObjectName("wx")
         self.wwx.setStyleSheet("#wx { background-color: transparent; }")
         self.wwx.setGeometry(0, 0, rect.width(), rect.height())
 
-        self.wmk = QtGui.QLabel(self)
+        self.wmk = QtWidgets.QLabel(self)
         self.wmk.setObjectName("mk")
         self.wmk.setStyleSheet("#mk { background-color: transparent; }")
         self.wmk.setGeometry(0, 0, rect.width(), rect.height())
@@ -1022,7 +1088,10 @@ class Radar(QtGui.QLabel):
                 self.getTiles(tt)
                 break
 
+
     def getTiles(self, t, i=0):
+        global luis
+        #print ("into get tiles")
         t = int(t / 600)*600
         self.getTime = t
         self.getIndex = i
@@ -1035,12 +1104,22 @@ class Radar(QtGui.QLabel):
                 self.tileurls.append(tileurl)
 #        print self.myname + " " + str(self.getIndex) + " " + self.tileurls[i]
         self.tilereq = QNetworkRequest(QUrl(self.tileurls[i]))
+        #print ("ANTES TILEREPLY")
+        #self.tilereply = manager.get(self.tilereq)
+        
+                
+        
         self.tilereply = manager.get(self.tilereq)
-        QtCore.QObject.connect(self.tilereply, QtCore.SIGNAL(
-                "finished()"), self.getTilesReply)
+        self.tilereply.finished.connect(self.getTilesReply)
+
+
+        
+        
+        
+
+
 
     def getTilesReply(self):
-#        print "getTilesReply " + str(self.getIndex)
         if self.tilereply.error() != QNetworkReply.NoError:
                 return
         self.tileQimages.append(QImage())
@@ -1206,11 +1285,21 @@ class Radar(QtGui.QLabel):
     def getbase(self):
         global manager
         self.basereq = QNetworkRequest(QUrl(self.baseurl))
-        self.basereply = manager.get(self.basereq)
-        QtCore.QObject.connect(self.basereply, QtCore.SIGNAL(
-            "finished()"), self.basefinished)
+        
+        self.nam = QtNetwork.QNetworkAccessManager()
+        #self.nam.finished.connect(self.basefinished)
+        self.basereply = self.nam.get(self.basereq)
+        self.basereply.finished.connect(self.basefinished)
+
+        
+        # #QtCore.QObject.connect(self.basereply, QtCore.SIGNAL("finished()"), self.basefinished)
+        
+
+       
+
 
     def start(self, interval=0):
+        print ("Start CALLED")
         if interval > 0:
             self.interval = interval
         self.getbase()
@@ -1244,8 +1333,8 @@ def myquit(a=0, b=0):
 
     #objradar1.stop()
     objradar2.stop()
-    objradar3.stop()
-    objradar4.stop()
+    #objradar3.stop()
+    #objradar4.stop()
     ctimer.stop()
     wxtimer.stop()
     temptimer.stop()
@@ -1287,18 +1376,18 @@ def nextframe(plusminus):
 
 def changeState():
     global meuBotao
-    print "Changing state"
+    print ("Changing state")
     if meuBotao == True:
-	print "era Vila Cha"
-	meuBotao = False
-	print "agora e VLC " +str(meuBotao)
+        print ("era Vila Cha")
+        meuBotao = False
+        print ("agora e VLC " +str(meuBotao))
     else:
-	print "era VLC"
-	meuBotao = True
-	print "agora e Vila Cha " +str(meuBotao)
+        print ("era VLC")
+        meuBotao = True
+        print ("agora e Vila Cha " +str(meuBotao))
 
 #Main class to listem for keyboarda nd click modification
-class myMain(QtGui.QWidget):
+class myMain(QtWidgets.QWidget):
 
     def keyPressEvent(self, event):
         global weatherplayer, lastkeytime
@@ -1327,9 +1416,9 @@ class myMain(QtGui.QWidget):
                 objimage1.prev_next(1)
             if event.key() == Qt.Key_F8:  # Play/Pause
                 objimage1.play_pause()
-	    if event.key() == Qt.Key_F10:
-		print "Vai chamar changing state"
-		changeState()
+            if event.key() == Qt.Key_F10:
+                print ("Vai chamar changing state")
+                changeState()
             if event.key() == Qt.Key_F9:  # Foreground Toggle
                 if foreGround.isVisible():
                     foreGround.hide()
@@ -1347,7 +1436,7 @@ if len(sys.argv) > 1:
     configname = sys.argv[1]
 
 if not os.path.isfile(configname + ".py"):
-    print "Config file not found %s" % configname + ".py"
+    print ("Config file not found %s" % configname + ".py")
     exit(1)
 
 Config = __import__(configname)
@@ -1459,6 +1548,11 @@ try:
     Config.usephotoshow
 except AttributeError:
     Config.usephotoshow = 0
+    
+try:
+    Config.AppMode
+except AttributeError:
+    Config.AppMode = "release"
 
 #
 # Check if Mapbox API key is set, and use mapbox if so
@@ -1479,17 +1573,24 @@ lastapiget = time.time()
 
 
 #PyQT Definitions
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 desktop = app.desktop()
 rec = desktop.screenGeometry()
-height = rec.height()
-width = rec.width()
 
+if Config.AppMode == "teste":
+    print ("Mode test activated - Window size according to raspberry pi desktop")
+    height = rec.height() *0.8533
+    width = rec.width() *0.66667
+else:
+    print ("Mode release activated - Window size 1280X1024")
+    height = rec.height() 
+    width = rec.width()
+     
+    
 signal.signal(signal.SIGINT, myquit)
 
 w = myMain()
 w.setWindowTitle(os.path.basename(__file__))
-
 w.setStyleSheet("QWidget { background-color: black;}")
 
 # fullbgpixmap = QtGui.QPixmap(Config.background)
@@ -1497,8 +1598,11 @@ w.setStyleSheet("QWidget { background-color: black;}")
 # xscale = float(width)/fullbgpixmap.width()
 # yscale = float(height)/fullbgpixmap.height()
 
-xscale = float(width) / 1440.0
-yscale = float(height) / 900.0
+
+xscale = float(width) / 1440.0 
+yscale = float(height) / 900.0 
+
+
 
 #print ("xscale "  + str(xscale))
 #print ("yscale" + str(yscale))
@@ -1507,7 +1611,7 @@ yscale = float(height) / 900.0
 frames = []
 framep = 0
 
-frame1 = QtGui.QFrame(w)
+frame1 = QtWidgets.QFrame(w)
 frame1.setObjectName("frame1")
 frame1.setGeometry(0, 0, width, height)
 frame1.setStyleSheet("#frame1 { background-color: black; border-image: url(" +
@@ -1527,7 +1631,7 @@ if Config.usephotoshow:
     objimage2 = SS2(frame1, photoRect, "image2")
 
 
-frame2 = QtGui.QFrame(w)
+frame2 = QtWidgets.QFrame(w)
 frame2.setObjectName("frame2")
 frame2.setGeometry(0, 0, width, height)
 frame2.setStyleSheet("#frame2 { background-color: blue; border-image: url(" +
@@ -1543,12 +1647,12 @@ frames.append(frame2)
 # frame3.setVisible(False)
 # frames.append(frame3)
 
-foreGround = QtGui.QFrame(frame1)
+foreGround = QtWidgets.QFrame(frame1)
 foreGround.setObjectName("foreGround")
 foreGround.setStyleSheet("#foreGround { background-color: transparent; }")
 foreGround.setGeometry(0, 0, width, height)
 
-squares1 = QtGui.QFrame(foreGround)
+squares1 = QtWidgets.QFrame(foreGround)
 squares1.setObjectName("squares1")
 squares1.setGeometry(0, height - yscale * 600, xscale * 340, yscale * 600)
 squares1.setStyleSheet(
@@ -1556,7 +1660,7 @@ squares1.setStyleSheet(
     Config.squares1 +
     ") 0 0 0 0 stretch stretch;}")
 
-squares2 = QtGui.QFrame(foreGround)
+squares2 = QtWidgets.QFrame(foreGround)
 squares2.setObjectName("squares2")
 squares2.setGeometry(width - xscale * 340, 0, xscale * 340, yscale * 900)
 squares2.setStyleSheet(
@@ -1565,7 +1669,7 @@ squares2.setStyleSheet(
     ") 0 0 0 0 stretch stretch;}")
 
 if not Config.digital:
-    clockface = QtGui.QFrame(foreGround)
+    clockface = QtWidgets.QFrame(foreGround)
     clockface.setObjectName("clockface")
     clockrect = QtCore.QRect(
         width / 2 - height * .4,
@@ -1578,15 +1682,15 @@ if not Config.digital:
         Config.clockface +
         ") 0 0 0 0 stretch stretch;}")
 
-    hourhand = QtGui.QLabel(foreGround)
+    hourhand = QtWidgets.QLabel(foreGround)
     hourhand.setObjectName("hourhand")
     hourhand.setStyleSheet("#hourhand { background-color: transparent; }")
 
-    minhand = QtGui.QLabel(foreGround)
+    minhand = QtWidgets.QLabel(foreGround)
     minhand.setObjectName("minhand")
     minhand.setStyleSheet("#minhand { background-color: transparent; }")
 
-    sechand = QtGui.QLabel(foreGround)
+    sechand = QtWidgets.QLabel(foreGround)
     sechand.setObjectName("sechand")
     sechand.setStyleSheet("#sechand { background-color: transparent; }")
 
@@ -1597,7 +1701,7 @@ if not Config.digital:
     secpixmap = QtGui.QPixmap(Config.sechand)
     secpixmap2 = QtGui.QPixmap(Config.sechand)
 else:
-    clockface = QtGui.QLabel(foreGround)
+    clockface = QtWidgets.QLabel(foreGround)
     clockface.setObjectName("clockface")
     clockrect = QtCore.QRect(
         width / 2 - height * .88,
@@ -1618,7 +1722,7 @@ else:
         "}")
     clockface.setAlignment(Qt.AlignCenter)
     clockface.setGeometry(clockrect)
-    glow = QtGui.QGraphicsDropShadowEffect()
+    glow = QtWidgets.QGraphicsDropShadowEffect()
     glow.setOffset(0)
     glow.setBlurRadius(50)
     glow.setColor(QColor(dcolor))
@@ -1631,15 +1735,14 @@ radar1rect = QtCore.QRect(3 * xscale, 344 * yscale, 300 * xscale, 275 * yscale)
 radar2rect = QtCore.QRect(3 * xscale, 622 * yscale, 300 * xscale, 275 * yscale)
 objradar2 = Radar(foreGround, Config.radar2, radar2rect, "radar2")
 
-radar3rect = QtCore.QRect(13 * xscale, 50 * yscale, 700 * xscale, 700 * yscale)
-objradar3 = Radar(frame2, Config.radar3, radar3rect, "radar3")
+#radar3rect = QtCore.QRect(13 * xscale, 50 * yscale, 700 * xscale, 700 * yscale)
+#objradar3 = Radar(frame2, Config.radar3, radar3rect, "radar3")
 
-radar4rect = QtCore.QRect(726 * xscale, 50 * yscale,
-                          700 * xscale, 700 * yscale)
-objradar4 = Radar(frame2, Config.radar4, radar4rect, "radar4")
+#radar4rect = QtCore.QRect(726 * xscale, 50 * yscale,700 * xscale, 700 * yscale)
+#objradar4 = Radar(frame2, Config.radar4, radar4rect, "radar4")
 
 
-datex = QtGui.QLabel(foreGround)
+datex = QtWidgets.QLabel(foreGround)
 datex.setObjectName("datex")
 datex.setStyleSheet("#datex { font-family:sans-serif; color: " +
                     Config.textcolor +
@@ -1651,7 +1754,7 @@ datex.setStyleSheet("#datex { font-family:sans-serif; color: " +
 datex.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datex.setGeometry(0, 10, width, 100)
 
-datex2 = QtGui.QLabel(frame2)
+datex2 = QtWidgets.QLabel(frame2)
 datex2.setObjectName("datex2")
 datex2.setStyleSheet("#datex2 { font-family:sans-serif; color: " +
                      Config.textcolor +
@@ -1661,7 +1764,7 @@ datex2.setStyleSheet("#datex2 { font-family:sans-serif; color: " +
                      "}")
 datex2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datex2.setGeometry(800 * xscale, 780 * yscale, 640 * xscale, 100)
-datey2 = QtGui.QLabel(frame2)
+datey2 = QtWidgets.QLabel(frame2)
 datey2.setObjectName("datey2")
 datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
                      Config.textcolor +
@@ -1673,7 +1776,7 @@ datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
 datey2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datey2.setGeometry(800 * xscale, 840 * yscale, 640 * xscale, 100)
 
-obituaryPersonNameLabel = QtGui.QLabel(foreGround)
+obituaryPersonNameLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonNameLabel.setObjectName("obituaryPersonNameLabel")
 obituaryPersonNameLabel.setStyleSheet("#obituaryPersonNameLabel { " +
                           " background-color: transparent; color: " +
@@ -1687,7 +1790,7 @@ obituaryPersonNameLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 obituaryPersonNameLabel.setGeometry(6 * xscale, 545 * yscale , 300 * xscale, 100)
 
 ###Change deffine all other obituary labels
-obituaryPersonDateAndAgeLabel = QtGui.QLabel(foreGround)
+obituaryPersonDateAndAgeLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonDateAndAgeLabel.setObjectName("obituaryPersonDateAndAgeLabel")
 obituaryPersonDateAndAgeLabel.setStyleSheet("#obituaryPersonDateAndAgeLabel { " +
                           " background-color: transparent; color: " +
@@ -1700,7 +1803,7 @@ obituaryPersonDateAndAgeLabel.setStyleSheet("#obituaryPersonDateAndAgeLabel { " 
 obituaryPersonDateAndAgeLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 obituaryPersonDateAndAgeLabel.setGeometry(6 * xscale, 557 * yscale , 300 * xscale, 100)
 
-obituaryPersonAdressLabel = QtGui.QLabel(foreGround)
+obituaryPersonAdressLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonAdressLabel.setObjectName("obituaryPersonAdressLabel")
 obituaryPersonAdressLabel.setStyleSheet("#obituaryPersonAdressLabel { " +
                           " background-color: transparent; color: " +
@@ -1713,7 +1816,7 @@ obituaryPersonAdressLabel.setStyleSheet("#obituaryPersonAdressLabel { " +
 obituaryPersonAdressLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 obituaryPersonAdressLabel.setGeometry(6 * xscale, 570 * yscale , 300 * xscale, 100)
 
-obituaryPersonFuneralLabel = QtGui.QLabel(foreGround)
+obituaryPersonFuneralLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonFuneralLabel.setObjectName("obituaryPersonFuneralLabel")
 obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
                           " background-color: transparent; color: " +
@@ -1727,12 +1830,12 @@ obituaryPersonFuneralLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 obituaryPersonFuneralLabel.setGeometry(6 * xscale, 583 * yscale , 300 * xscale, 200)
 
 ypos = -25
-wxicon = QtGui.QLabel(foreGround)
+wxicon = QtWidgets.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
 wxicon.setGeometry(0 * xscale, 80 * yscale, 150 * xscale, 140 * yscale)
 
-attribution2 = QtGui.QLabel(frame2)
+attribution2 = QtWidgets.QLabel(frame2)
 attribution2.setObjectName("attribution2")
 attribution2.setStyleSheet("#attribution2 { " +
                            "background-color: transparent; color: " +
@@ -1745,13 +1848,13 @@ attribution2.setStyleSheet("#attribution2 { " +
 attribution2.setAlignment(Qt.AlignTop)
 attribution2.setGeometry(6 * xscale, 880 * yscale, 100 * xscale, 100)
 
-wxicon2 = QtGui.QLabel(frame2)
+wxicon2 = QtWidgets.QLabel(frame2)
 wxicon2.setObjectName("wxicon2")
 wxicon2.setStyleSheet("#wxicon2 { background-color: transparent; }")
 wxicon2.setGeometry(0 * xscale, 750 * yscale, 150 * xscale, 150 * yscale)
 
 ypos += 130
-wxdesc = QtGui.QLabel(foreGround)
+wxdesc = QtWidgets.QLabel(foreGround)
 wxdesc.setObjectName("wxdesc")
 wxdesc.setStyleSheet("#wxdesc { background-color: transparent; color: " +
                      Config.textcolor +
@@ -1763,7 +1866,7 @@ wxdesc.setStyleSheet("#wxdesc { background-color: transparent; color: " +
 wxdesc.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wxdesc.setGeometry(5.625 * xscale, 52.73 * yscale, 300 * xscale, 100)
 
-wxdesc2 = QtGui.QLabel(frame2)
+wxdesc2 = QtWidgets.QLabel(frame2)
 wxdesc2.setObjectName("wxdesc2")
 wxdesc2.setStyleSheet("#wxdesc2 { background-color: transparent; color: " +
                       Config.textcolor +
@@ -1776,7 +1879,7 @@ wxdesc2.setAlignment(Qt.AlignLeft | Qt.AlignTop)
 wxdesc2.setGeometry(400 * xscale, 800 * yscale, 400 * xscale, 100)
 
 ypos += 25
-temper = QtGui.QLabel(foreGround)
+temper = QtWidgets.QLabel(foreGround)
 temper.setObjectName("temper")
 temper.setStyleSheet("#temper { background-color: transparent; color: " +
                      Config.textcolor +
@@ -1788,7 +1891,7 @@ temper.setStyleSheet("#temper { background-color: transparent; color: " +
 temper.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 temper.setGeometry(70 * xscale, 105.46 * yscale, 300 * xscale, 100)
 
-temper2 = QtGui.QLabel(frame2)
+temper2 = QtWidgets.QLabel(frame2)
 temper2.setObjectName("temper2")
 temper2.setStyleSheet("#temper2 { background-color: transparent; color: " +
                       Config.textcolor +
@@ -1801,7 +1904,7 @@ temper2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 temper2.setGeometry(140 * xscale, 780 * yscale, 300 * xscale, 100)
 
 ypos += 80
-press = QtGui.QLabel(foreGround)
+press = QtWidgets.QLabel(foreGround)
 press.setObjectName("press")
 press.setStyleSheet("#press { background-color: transparent; color: " +
                     Config.textcolor +
@@ -1814,7 +1917,7 @@ press.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 press.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
 ypos += 30
-humidity = QtGui.QLabel(foreGround)
+humidity = QtWidgets.QLabel(foreGround)
 humidity.setObjectName("humidity")
 humidity.setStyleSheet("#humidity { background-color: transparent; color: " +
                        Config.textcolor +
@@ -1827,7 +1930,7 @@ humidity.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 humidity.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
 ypos += 30
-wind = QtGui.QLabel(foreGround)
+wind = QtWidgets.QLabel(foreGround)
 wind.setObjectName("wind")
 wind.setStyleSheet("#wind { background-color: transparent; color: " +
                    Config.textcolor +
@@ -1840,7 +1943,7 @@ wind.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wind.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
 ypos += 20
-wind2 = QtGui.QLabel(foreGround)
+wind2 = QtWidgets.QLabel(foreGround)
 wind2.setObjectName("wind2")
 wind2.setStyleSheet("#wind2 { background-color: transparent; color: " +
                     Config.textcolor +
@@ -1853,7 +1956,7 @@ wind2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wind2.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
 ypos += 20
-wdate = QtGui.QLabel(foreGround)
+wdate = QtWidgets.QLabel(foreGround)
 wdate.setObjectName("wdate")
 wdate.setStyleSheet("#wdate { background-color: transparent; color: " +
                     Config.textcolor +
@@ -1865,7 +1968,7 @@ wdate.setStyleSheet("#wdate { background-color: transparent; color: " +
 wdate.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wdate.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
 
-bottom = QtGui.QLabel(foreGround)
+bottom = QtWidgets.QLabel(foreGround)
 bottom.setObjectName("bottom")
 bottom.setStyleSheet("#bottom { font-family:sans-serif; color: " +
                      Config.textcolor +
@@ -1877,7 +1980,7 @@ bottom.setStyleSheet("#bottom { font-family:sans-serif; color: " +
 bottom.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 bottom.setGeometry(0, 60, width, 100)
 
-temp = QtGui.QLabel(foreGround)
+temp = QtWidgets.QLabel(foreGround)
 temp.setObjectName("temp")
 temp.setStyleSheet("#temp { font-family:sans-serif; color: " +
                    Config.textcolor +
@@ -1892,7 +1995,7 @@ temp.setGeometry(0, 60, width, 50)
 
 forecast = []
 for i in range(0, 9):
-    lab = QtGui.QLabel(foreGround)
+    lab = QtWidgets.QLabel(foreGround)
     lab.setObjectName("forecast" + str(i))
     lab.setStyleSheet("QWidget { background-color: transparent; color: " +
                       Config.textcolor +
@@ -1904,19 +2007,19 @@ for i in range(0, 9):
     lab.setGeometry(1137 * xscale, i * 100 * yscale,
                     300 * xscale, 100 * yscale)
 
-    icon = QtGui.QLabel(lab)
+    icon = QtWidgets.QLabel(lab)
     icon.setStyleSheet("#icon { background-color: transparent; }")
     icon.setGeometry(0, 5, 95 * xscale, 95 * yscale)
     icon.setObjectName("icon")
 
-    wx = QtGui.QLabel(lab)
+    wx = QtWidgets.QLabel(lab)
     wx.setStyleSheet("#wx { background-color: transparent; }")
     wx.setGeometry(100 * xscale, 5 * yscale, 200 * xscale, 120 * yscale)
     wx.setAlignment(Qt.AlignLeft | Qt.AlignTop)
     wx.setWordWrap(True)
     wx.setObjectName("wx")
 
-    day = QtGui.QLabel(lab)
+    day = QtWidgets.QLabel(lab)
     day.setStyleSheet("#day { background-color: transparent; }")
     day.setGeometry(100 * xscale, 75 * yscale, 200 * xscale, 25 * yscale)
     day.setAlignment(Qt.AlignRight | Qt.AlignBottom)
@@ -1938,6 +2041,7 @@ stimer.singleShot(10, qtstart)
 # print radarurl(Config.radar1,radar1rect)
 
 w.show()
-w.showFullScreen()
+#w.showFullScreen()
+
 
 sys.exit(app.exec_())
