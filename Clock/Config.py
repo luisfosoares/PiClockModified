@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from GoogleMercatorProjection import LatLng
-from PyQt4.QtGui import QColor
+from PyQt5.QtGui import QColor
 
+##App mode - Test in Raspberry Pi Desktop or Release in 1280x1200 screen
+AppMode = "teste"
 
 # LOCATION(S)
 # Further radar configuration (zoom, marker location) can be
@@ -35,7 +37,7 @@ digital = 1                 # 1 = Digtal Clock, 0 = Analog Clock
 #downloadPhotos
 
 obituaryPhotos = 1
-limit = 6
+limit = 1
 # usephotoshow
 usephotoshow = 1
 photo_time = 30
