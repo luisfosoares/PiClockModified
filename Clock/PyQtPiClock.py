@@ -644,13 +644,13 @@ class Fetch():
 
 
     def startFetching(self, interval):
-        ###print ("startFetching")
+        print ("startFetching")
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_ss3)
         self.timer.start(1000 * interval + random.uniform(1, 10))
         self.run_ss3()
-        ###print ("new timer, running ss")
+        print ("new timer, running ss")
         
         
 
@@ -666,10 +666,10 @@ class Fetch():
 
 
     def fetch_photos(self):
-        ###print ("Fetching photos")
+        print ("Fetching photos")
         try:
             objimage2.stop()
-            ###print ("stoped")
+            print ("stoped")
         except:
             print ("impossible to stop maybe 1st time")
 
@@ -677,18 +677,12 @@ class Fetch():
         ### To change to config file
         if meuBotao == False:
             print ("VLC")
-            ###print ("Vai iniciar")
-            print (datetime.datetime.now())
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
-            ###print ("parou") 
-            print (datetime.datetime.now())
         if meuBotao == True:
             print ("VILA CHA")
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
-        
+
         soup =BeautifulSoup(source, 'html5lib')
-        
-        
 
 ### To change all names below
         global nomes
@@ -743,19 +737,17 @@ class Fetch():
                     ages.append(idade.text.strip())
 
         for id in ids:
-
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
-
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-        try:
-            funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
-
-        except:
-            funeral.append(str("Data a definir"))
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
+            except:
+                funeral.append(str("Data a definir"))
 
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
+
 
         for photo in fotos:
             i = fotos.index(photo)
@@ -784,13 +776,16 @@ class Fetch():
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-            ###print ("all photos added")
-            try:
-                ###print ("trying to restart")
-                print (datetime.datetime.now())
-                objimage2.startPhoto(Config.photo_time)
-            except:
-                print ("not possible to startt")
+        print ("all photos added")
+        try:
+            print ("trying to restart")
+            objimage2.startPhoto(Config.photo_time)
+        except:
+            print ("not possible to startt")
+
+
+
+
 
 
 
@@ -936,30 +931,6 @@ def pessoa(nome, photo, date, id, age,adress,funeral):
     #print dicionario
     obituaryList.append(dicionario)
 
-# Step 1: Create a worker class
-class Worker(QObject):
-    #print ("into worker")
-    finished = pyqtSignal()
-    progress = pyqtSignal(int)
-    
-    
-    def run(self):
-        #print ("Long-running task.")
-
-        self.finished.emit()
-        
-class Worker2(QObject):
-    print ("into worker2")
-    finished = pyqtSignal()
-    progress = pyqtSignal(int)
-    
-    
-    def run(self):
-        print ("Long-running task222222222222222222222222222.")
-
-        self.finished.emit()
-        
-
 
 #Radar definition
 class Radar(QtWidgets.QLabel):
@@ -1090,8 +1061,6 @@ class Radar(QtWidgets.QLabel):
 
 
     def getTiles(self, t, i=0):
-        global luis
-        #print ("into get tiles")
         t = int(t / 600)*600
         self.getTime = t
         self.getIndex = i
@@ -1104,18 +1073,8 @@ class Radar(QtWidgets.QLabel):
                 self.tileurls.append(tileurl)
 #        print self.myname + " " + str(self.getIndex) + " " + self.tileurls[i]
         self.tilereq = QNetworkRequest(QUrl(self.tileurls[i]))
-        #print ("ANTES TILEREPLY")
-        #self.tilereply = manager.get(self.tilereq)
-        
-                
-        
         self.tilereply = manager.get(self.tilereq)
         self.tilereply.finished.connect(self.getTilesReply)
-
-
-        
-        
-        
 
 
 
