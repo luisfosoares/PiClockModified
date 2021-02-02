@@ -255,9 +255,12 @@ def obituaryPhotoDisplayFinished(photoNumber):
         obituaryPersonDateAndAgeLabel.setText(obituaryPerson["date"] + "   " + "Idade: " + obituaryPerson["age"])
 
         #Remove 17 characters from end, ", vale de cambra"
-        #was -17 now its -44 --- 27_05_2020
-        obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
-
+        print ("Adress")
+        print (obituaryPerson["adress"])
+        ##2020 version
+        #obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
+        obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-17]))
+        
         ###print (str(len(obituaryPerson["funeral"])))
 
         if (len(obituaryPerson["funeral"]) < 45):
@@ -725,7 +728,6 @@ class Fetch():
 
         for local in soup.find_all('span',class_='local',limit=Config.limit):
         	adress.append(local.text)
-
 
         for id in ids:
 
