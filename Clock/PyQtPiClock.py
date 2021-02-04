@@ -38,7 +38,8 @@ from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # 
 
 #File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
-global objimage2
+global objimage2, firsttime 
+
 #Second by second clock definition
 def tick():
     global hourpixmap, minpixmap, secpixmap
@@ -255,8 +256,6 @@ def obituaryPhotoDisplayFinished(photoNumber):
         obituaryPersonDateAndAgeLabel.setText(obituaryPerson["date"] + "   " + "Idade: " + obituaryPerson["age"])
 
         #Remove 17 characters from end, ", vale de cambra"
-        print ("Adress")
-        print (obituaryPerson["adress"])
         ##2020 version
         #obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
         obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-17]))
@@ -283,8 +282,6 @@ def wxfinished():
     global wxicon2, temper2, wxdesc
 
     attribution2.setText("")
-
-    print ("Entra data")
 
     try:
         # For Python 3.0 and later
@@ -543,8 +540,10 @@ def qtstart():
 ###Change name of time_to_fetch to time_to_scape_obituary
         objimage3.startFetching(Config.time_to_fetch)
 
-    if Config.usephotoshow:
-        objimage2.startPhoto(Config.photo_time)
+    #TO REWORK
+    #if Config.usephotoshow:
+        #objimage2.startPhoto(Config.photo_time)
+        #print ("user Has photoshow")
 
 
 
@@ -638,54 +637,75 @@ class SS(QtWidgets.QLabel):
                     self.img_list.append(fullFile)
 
 
+
+
 #Class to fetch all data
 ##To change name to Scrape_obituary
-class Fetch():
-
+class Fetch(QtCore.QObject):
+    
     ###print (datetime.datetime.now())
 
-
+    signalStatus = QtCore.pyqtSignal(str)
 
     def startFetching(self, interval):
-        print ("startFetching")
+        global firsttime
+        print ("Manda iniciar a pesquisa de falecimentos")
+        
+        
+        
 
+        
+        self.createWorkerThread()
+        self._connectSignals()
+        
+        
+        if firsttime == True:
+            print ("1st")
+            self.inicioFalecimentos() 
+            
+            firsttime= False
+        else:
+            print ("2nd")
+            intervalo = interval
+   
         self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.run_ss3)
+        self.timer.timeout.connect(self.worker.fetch_photos)
         self.timer.start(1000 * interval + random.uniform(1, 10))
-        self.run_ss3()
-        print ("new timer, running ss")
+
+            
+    def createWorkerThread(self):
+        self.worker = Worker()
+        self.thread = QThread()
+        self.worker.moveToThread(self.thread)
+        self.thread.start()
         
+    def _connectSignals(self):
         
-
-    def stop(self):
-        try:
-            self.timer.stop()
-            self.timer = None
-        except Exception:
-            pass
-
-    def run_ss3(self):
-        self.fetch_photos()
+        self.worker.finished.connect(self.updateStatus)
+        self.thread.started.connect(self.worker.fetch_photos)
 
 
-    def fetch_photos(self):
-        print ("Fetching photos")
-        try:
-            objimage2.stop()
-            print ("stoped")
-        except:
-            print ("impossible to stop maybe 1st time")
+            
+    def updateStatus (self):
+        print ("Actualiza ecra com novos dados")
+        objimage2.startPhoto(Config.photo_time)
+
+
+
+    def inicioFalecimentos(self):
+        print ("Actualizando Falecimentos versao inicial")
+
 
         #Obituary source
         ### To change to config file
         if meuBotao == False:
-            print ("VLC")
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
+
         if meuBotao == True:
             print ("VILA CHA")
             source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
 
-        soup =BeautifulSoup(source, 'html5lib')
+        soup = BeautifulSoup(source, 'html5lib')
 
 ### To change all names below
         global nomes
@@ -707,6 +727,9 @@ class Fetch():
         obituaryList = []
         funeral = []
 
+        print (datetime.datetime.now())
+        print ("Inicia o processo de dados de falecimentos")
+        
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
         	nomes.append(falecimentos.text)
 
@@ -749,7 +772,8 @@ class Fetch():
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
-
+        print (datetime.datetime.now())
+        print ("Termina o processo de dados falecimentos ")
 
         for photo in fotos:
             i = fotos.index(photo)
@@ -778,19 +802,138 @@ class Fetch():
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-        print ("all photos added")
-        try:
-            print ("trying to restart")
-            objimage2.startPhoto(Config.photo_time)
-        except:
-            print ("not possible to startt")
+        #print ("all photos added")
 
 
+        
+        print ("Dados iniciais de falecimentos prontos")
+        self.updateStatus()
+        
+# Step 1: Create a worker class
+class Worker(QObject):
+    finished = pyqtSignal()
+    signalStatus = QtCore.pyqtSignal(str)
+    
+    def __init__(self, *args, **kwargs):
+        QThread.__init__(self, *args, **kwargs)
 
 
+    def fetch_photos(self):
+        print ("Actualizando Falecimentos")
 
 
+        #Obituary source
+        ### To change to config file
+        if meuBotao == False:
+            source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=&onde=&quem=&onde_txt=vale+de+cambra').text
 
+        if meuBotao == True:
+            print ("VILA CHA")
+            source = requests.get('https://www.infofunerais.pt/pt/?op=search&pesquisaFalecimentos=1&tipo=freguesia&onde=3238&quem=&onde_txt=VILA+CHÃ%2C+VALE+DE+CAMBRA%2C+AVEIRO').text
+
+        soup = BeautifulSoup(source, 'html5lib')
+
+### To change all names below
+        global nomes
+        global fotos
+        global datas
+        global ids
+        global ages
+        global adress
+        global obituaryList
+        global funeral
+
+
+        nomes = []
+        fotos = []
+        datas = []
+        ids = []
+        ages = []
+        adress = []
+        obituaryList = []
+        funeral = []
+
+        print (datetime.datetime.now())
+        print ("Inicia o processo de dados de falecimentos")
+        
+        for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
+        	nomes.append(falecimentos.text)
+
+        for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=Config.limit):
+        	pattern = r"(?<=url\().*(?='\))"
+        	url = re.search(pattern, result["style"]).group(0)
+        	url= url[1:]
+        	fotos.append(str(url))
+
+
+        for obito in soup.find_all('span',class_='idade', limit=Config.limit):
+        	datas.append(obito.text)
+
+
+        for result in  soup.find_all('div',class_='f_bloc',limit=Config.limit):
+        	for link in result.find_all('a', attrs={'href': re.compile("^https://")}):
+        		idfinal = link.get('href')[-5:]
+        		ids.append(idfinal)
+
+        for local in soup.find_all('span',class_='local',limit=Config.limit):
+        	adress.append(local.text)
+
+        for id in ids:
+
+        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+
+        	soup2 =BeautifulSoup(soure, 'html5lib')
+
+        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+                    ages.append(idade.text.strip())
+
+        for id in ids:
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
+            except:
+                funeral.append(str("Data a definir"))
+
+	    #To pass each person collected to method "pessoa"
+        for index, nome in enumerate(nomes):
+            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
+        print (datetime.datetime.now())
+        print ("Termina o processo de dados falecimentos ")
+
+        for photo in fotos:
+            i = fotos.index(photo)
+            extensao = photo[-3:]
+    	    #to convert jpeg to jpg
+            if extensao == "peg":
+                extensao = "jpg"
+
+	    #link to save new picture
+            link = ("/home/pi/PiClock/Clock/images/photoshow/{}.{}".format(str(i),extensao))
+            linkReduced = link[-5:]
+            linkReduced2 = linkReduced [:1]
+
+	    #old picture link
+            fil = glob.glob('/home/pi/PiClock/Clock/images/photoshow/{}*'.format(str(i)))
+
+	    #to check for old picture and delete to later replace for new one
+            if linkReduced2==str(i): #check picture number
+                if (fil): #check if folder is not empty
+                    if (os.path.isfile(fil[0])): #pick old picture
+                        os.unlink(fil[0]) #delete old picture
+                else:
+                    print ("fil is empty")
+            else:
+                print ("Old picture link not found")
+            f = open(link,'wb')
+            f.write(requests.get(photo).content)
+            f.close()
+        #print ("all photos added")
+
+
+        
+        print ("Dados de falecimentos prontos")
+        self.finished.emit()
 
 
 ## Class to run Obituary Slideshow (in the left of screen)
@@ -831,26 +974,36 @@ class SS2(QtWidgets.QLabel):
             pass
 
     def run_ss2(self):
-        ###print ("startphoto called, get images and switch foto will be called")
+        #print ("run ss2")
         self.get_images()
         self.switch_image()
 
 
     def switch_image(self):
+        print ("Altera pessoa na janela falecimentos")
+
         if self.img_list:
             if not self.pause:
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
+                 
                     self.count = 0
                 self.show_image(self.img_list[self.count])
 		#to get number of photo based on saved name
 		#select last 5 characters, remove the . and extension (3chars)
 	        #print ((self.img_list[self.count])[-5:])[:1]
 		#this variable is the number of the photo to be passed as index for all the arrays of data of person in obituary
-                obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
-                ###print ("Obituary photo number:" + str(obituaryPhotoNumber))
-                obituaryPhotoDisplayFinished(obituaryPhotoNumber)
                 self.img_inc = 1
+                try:
+                    obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
+                    ###print ("Obituary photo number:" + str(obituaryPhotoNumber))
+                    obituaryPhotoDisplayFinished(obituaryPhotoNumber)
+                    #print ("Passou o try obityaryPhotoBr")
+                except:
+                    print ("Ainda nao tem fotos de falecimentos")
+                
+        else:
+            print ("No image Available in image List")
 
     def show_image(self, image):
         image = QtGui.QImage(image)
@@ -1260,7 +1413,9 @@ class Radar(QtWidgets.QLabel):
 
 
     def start(self, interval=0):
-        print ("Start CALLED")
+        global firsttime
+        firsttime = True
+        print ("Inicia a aplicacao")
         if interval > 0:
             self.interval = interval
         self.getbase()
@@ -1995,6 +2150,7 @@ manager = QtNetwork.QNetworkAccessManager()
 # proxy.setHostName("localhost")
 # proxy.setPort(8888)
 # QNetworkProxy.setApplicationProxy(proxy)
+
 
 stimer = QtCore.QTimer()
 stimer.singleShot(10, qtstart)
