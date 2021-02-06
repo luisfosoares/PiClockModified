@@ -8,7 +8,7 @@ import platform
 import signal
 import datetime
 import time
-import json
+import simplejson as json
 import locale
 import random
 from bs4 import BeautifulSoup
@@ -147,11 +147,9 @@ def tick():
         ds = "{0:%A}, {0.day}<sup>{1}</sup>  {0:%B} {0.year}".format(now, sup)
         ds2 = "{0:%A}, {0.day}<sup>{1}</sup> {0:%B} {0.year}".format(now, sup)
         datex.setText(ds.title())
-        if Config.AppMode == "teste":
-            ds = "{0:%d}<sup>{1}</sup>/{0:%m}/{0.year}".format(now, sup)
-            datex2.setText(ds.title())
-        else:
-            datex2.setText(ds2.title())
+        
+        ds = "{0:%d}<sup>{1}</sup>/{0:%m}/{0.year}".format(now, sup)
+        datex2.setText(ds.title())
 
 #Internal temperature definition
 def tempfinished():
@@ -682,7 +680,12 @@ class Fetch(QtCore.QObject):
         self.worker.finished.connect(self.updateStatus)
         self.thread.started.connect(self.worker.fetch_photos)
 
-
+    def stop(self):
+        try:
+            self.timer.stop()
+            self.timer = None
+        except Exception:
+            pass
             
     def updateStatus (self):
         print ("Actualiza ecra com novos dados")
@@ -781,7 +784,6 @@ class Fetch(QtCore.QObject):
             for result in soup2.find_all("ul", {"id": "folhetos"}):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
-                print (url1)
                 paperLinks.append(url1)
                 
                 
@@ -848,7 +850,6 @@ class Fetch(QtCore.QObject):
                 print ("Old picture link not found")
             f = open(link,'wb')
             f.write(requests.get(paperlink).content)
-            print (str(link[-3:]))
             newimage = convert_from_path(link)
             for image in newimage:
                 newimage[0].save(link[:-3]+"png", 'PNG')
@@ -960,7 +961,6 @@ class Worker(QObject):
             for result in soup2.find_all("ul", {"id": "folhetos"}):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
-                print (url1)
                 paperLinks.append(url1)
                 
                 
@@ -1027,7 +1027,6 @@ class Worker(QObject):
                 print ("Old picture link not found")
             f = open(link,'wb')
             f.write(requests.get(paperlink).content)
-            print (str(link[-3:]))
             newimage = convert_from_path(link)
             for image in newimage:
                 newimage[0].save(link[:-3]+"png", 'PNG')
@@ -1061,7 +1060,6 @@ class BibleSlide(QtWidgets.QLabel):
         self.setAlignment(Qt.AlignHCenter | Qt.AlignCenter)
 
     def startBible(self, interval):
-        print ("startBible")
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.run_bible)
         self.timer.start(1000 * interval + random.uniform(1, 10))
@@ -1071,20 +1069,17 @@ class BibleSlide(QtWidgets.QLabel):
         try:
             self.timer.stop()
             self.timer = None
-            print ("stopped startPhoto")
         except Exception:
             pass
 
     def run_bible(self):
-        #print ("run bible")
         self.get_chapter()
-
 
 
     def show_chapter(self, image):
         wxdesc2.setText(image)
         return
-
+        
 
     def prev_next(self, direction):
         self.img_inc = direction
@@ -1094,40 +1089,25 @@ class BibleSlide(QtWidgets.QLabel):
 
     def get_chapter(self):
 
-
-
-
-        with open('acf.json') as f:
-            content = f.read()
-            if content.startswith(u'\ufeff'):
-                content = content.encode('utf8')[3:].decode('utf8')
+        with open('acf.json') as jsonBiblia:
+            contentBiblia = jsonBiblia.read()
+            if contentBiblia.startswith(u'\ufeff'):
+                contentBiblia = contentBiblia.encode('utf8')[3:].decode('utf8')
             
-            d = json.loads(content)
+            d = json.loads(contentBiblia)
             
-        #n = random.random()
         numeroLivros=len(d)
         livroRandom = random.randint(0, len(d) -1)
         
-        print (str(livroRandom))
-        testee = d[livroRandom]['chapters']
-        print ("teste lengt" + str(len(testee)))
-        numeroCap = random.randint(0, len(testee)-1 )
-        print (str(numeroCap))
-        testef = (d[livroRandom]['chapters'][numeroCap])
+        numeroCapitulos = d[livroRandom]['chapters']
+        numeroCapRandom = random.randint(0, len(numeroCapitulos)-1 )
+        textoBiblia = (d[livroRandom]['chapters'][numeroCapRandom])
 
-        textocomp= ""
-        for line in testef:
-            #textocomp = textocomp + '\n' + line
-            textocomp = textocomp  + line
-
-        self.show_chapter(textocomp)
-        #print (textocomp)
-
-
-
+        textoCompleto= ""
+        for line in textoBiblia:
+            textoCompleto = textoCompleto  + line
         
-
-
+        self.show_chapter(textoCompleto)
 
 
 ## Class to run Obituary Slideshow (in the left of screen)
@@ -1172,7 +1152,6 @@ class ObituarySlide(QtWidgets.QLabel):
 
 
     def switch_image(self):
-        print ("Altera pessoa na janela falecimentos")
 
         if self.img_list:
             if not self.pause:
@@ -1638,7 +1617,7 @@ class Radar(QtWidgets.QLabel):
 
 #Quit app
 def realquit():
-    QtGui.QApplication.exit(0)
+    QtWidgets.QApplication.exit(0)
 
 #stop all items
 def myquit(a=0, b=0):
@@ -2076,7 +2055,7 @@ datex2.setStyleSheet("#datex2 { font-family:sans-serif; color: " +
                      Config.fontattr +
                      "}")
 datex2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-datex2.setGeometry(840* xscale, 20 * yscale, 300 * xscale, 100)
+datex2.setGeometry(840* xscale, 20 * yscale, 300 * xscale, 50)
 
 #hora frame 2
 datey2 = QtWidgets.QLabel(frame2)
@@ -2186,7 +2165,7 @@ wxdesc2 = QtWidgets.QLabel(frame2)
 wxdesc2.setObjectName("wxdesc2")
 wxdesc2.setWordWrap(True)
 
-wxdesc2.setStyleSheet("#wxdesc2 { background-transparent: black; color: white" +
+wxdesc2.setStyleSheet("#wxdesc2 { background-color: black; color: white" +
                       "; font-size: " +
                       str(int(15 * xscale)) +
                       "px; " +
@@ -2231,7 +2210,7 @@ press.setStyleSheet("#press { background-color: transparent; color: " +
                     Config.fontattr +
                     "}")
 press.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-press.setGeometry(3 * xscale, ypos * yscale, 300 * xscale, 100)
+press.setGeometry(3 * xscale, (ypos * yscale) + 5 , 300 * xscale, 100)
 
 ypos += 30
 humidity = QtWidgets.QLabel(foreGround)
@@ -2359,7 +2338,10 @@ stimer.singleShot(10, qtstart)
 # print radarurl(Config.radar1,radar1rect)
 
 w.show()
-#w.showFullScreen()
+if Config.AppMode == "teste":
+    print ("No fullscreen")
+else:
+    w.showFullScreen()
 
 
 sys.exit(app.exec_())
