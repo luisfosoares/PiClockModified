@@ -17,6 +17,7 @@ import requests
 import re
 import shutil
 import glob
+import codecs
 
 
 
@@ -146,7 +147,11 @@ def tick():
         ds = "{0:%A}, {0.day}<sup>{1}</sup>  {0:%B} {0.year}".format(now, sup)
         ds2 = "{0:%A}, {0.day}<sup>{1}</sup> {0:%B} {0.year}".format(now, sup)
         datex.setText(ds.title())
-        datex2.setText(ds2.title())
+        if Config.AppMode == "teste":
+            ds = "{0:%d}<sup>{1}</sup>/{0:%m}/{0.year}".format(now, sup)
+            datex2.setText(ds.title())
+        else:
+            datex2.setText(ds2.title())
 
 #Internal temperature definition
 def tempfinished():
@@ -313,17 +318,13 @@ def wxfinished():
     wxicon.setPixmap(wxiconpixmap.scaled(
         wxicon.width(), wxicon.height(), Qt.IgnoreAspectRatio,
         Qt.SmoothTransformation))
-    wxicon2.setPixmap(wxiconpixmap.scaled(
-        wxicon.width(),
-        wxicon.height(),
-        Qt.IgnoreAspectRatio,
-        Qt.SmoothTransformation))
+    #wxicon2.setPixmap(wxiconpixmap.scaled(wxicon.width(),wxicon.height(),Qt.IgnoreAspectRatio,Qt.SmoothTransformation))
     wxdesc.setText(f['summary'])
-    wxdesc2.setText(f['summary'])
+    #wxdesc2.setText(f['summary'])
 
     if Config.metric:
         temper.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
-        temper2.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
+        #temper2.setText('%.1f' % (tempm(f['temperature'])) + u'°C')
         press.setText(Config.LPressure + '%.1f' % f['pressure'] + 'mb')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
@@ -342,7 +343,7 @@ def wxfinished():
 
     else:
         temper.setText('%.1f' % (f['temperature']) + u'°F')
-        temper2.setText('%.1f' % (f['temperature']) + u'°F')
+        #temper2.setText('%.1f' % (f['temperature']) + u'°F')
         press.setText(Config.LPressure + '%.2f' % pressi(f['pressure']) + 'in')
         humidity.setText(Config.LHumidity + '%.0f%%' % (f['humidity']*100.0))
         wd = bearing(f['windBearing'])
@@ -509,12 +510,11 @@ def qtstart():
 
     gettemp()
 
-    #replaced by obituary
-    #objradar1.start(Config.radar_refresh * 60)
-    #objradar1.wxstart()
+
     objradar2.start(Config.radar_refresh * 60)
     objradar2.wxstart()
-    #objradar4.start(Config.radar_refresh * 60)
+    
+    objimage5.startBible(Config.bibleTime)
 
     ctimer = QtCore.QTimer()
     ctimer.timeout.connect(tick)
@@ -659,9 +659,7 @@ class Fetch(QtCore.QObject):
         if firsttime == True:
             print ("1st")
             self.inicioFalecimentos() 
-            #images = convert_from_path('/home/pi/PiClock/Clock/images/paperlinks/21012609305993.pdf')
-            #for image in images:
-                #image.save('sample1.png', 'PNG')
+
             
             firsttime= False
         else:
@@ -1041,6 +1039,97 @@ class Worker(QObject):
         self.finished.emit()
 
 
+
+## Class to run BibleSlideshow (frame2)
+class BibleSlide(QtWidgets.QLabel):
+
+
+    def __init__(self, parent, rect, myname):
+        self.myname = myname
+        self.rect = rect
+        QtWidgets.QLabel.__init__(self, parent)
+
+        self.pause = True
+        self.count = 0
+        self.img_list = []
+        self.img_inc = 1
+
+        self.setObjectName("slideShow")
+        self.setGeometry(rect)
+        self.setStyleSheet("#slideShow { background-color: " +
+                           Config.photo_bg_color + "; }")
+        self.setAlignment(Qt.AlignHCenter | Qt.AlignCenter)
+
+    def startBible(self, interval):
+        print ("startBible")
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.run_bible)
+        self.timer.start(1000 * interval + random.uniform(1, 10))
+        self.run_bible()
+
+    def stop(self):
+        try:
+            self.timer.stop()
+            self.timer = None
+            print ("stopped startPhoto")
+        except Exception:
+            pass
+
+    def run_bible(self):
+        #print ("run bible")
+        self.get_chapter()
+
+
+
+    def show_chapter(self, image):
+        wxdesc2.setText(image)
+        return
+
+
+    def prev_next(self, direction):
+        self.img_inc = direction
+        self.timer.stop()
+        self.get_chapter()
+        self.timer.start()
+
+    def get_chapter(self):
+
+
+
+
+        with open('acf.json') as f:
+            content = f.read()
+            if content.startswith(u'\ufeff'):
+                content = content.encode('utf8')[3:].decode('utf8')
+            
+            d = json.loads(content)
+            
+        #n = random.random()
+        numeroLivros=len(d)
+        livroRandom = random.randint(0, len(d) -1)
+        
+        print (str(livroRandom))
+        testee = d[livroRandom]['chapters']
+        print ("teste lengt" + str(len(testee)))
+        numeroCap = random.randint(0, len(testee)-1 )
+        print (str(numeroCap))
+        testef = (d[livroRandom]['chapters'][numeroCap])
+
+        textocomp= ""
+        for line in testef:
+            #textocomp = textocomp + '\n' + line
+            textocomp = textocomp  + line
+
+        self.show_chapter(textocomp)
+        #print (textocomp)
+
+
+
+        
+
+
+
+
 ## Class to run Obituary Slideshow (in the left of screen)
 class ObituarySlide(QtWidgets.QLabel):
 
@@ -1289,7 +1378,6 @@ class Radar(QtWidgets.QLabel):
                 #print ("ticker <5")
                 return
         self.ticker = 0
-        #print ("funcao de erro")
         f = self.frameImages[self.displayedFrame]
         #print (str(f))
         self.wwx.setPixmap(f["image"])
@@ -1632,6 +1720,7 @@ class myMain(QtWidgets.QWidget):
                 objimage1.prev_next(-1)
             if event.key() == Qt.Key_F7:  # Next Image
                 objimage1.prev_next(1)
+                objimage5.prev_next(1)
             if event.key() == Qt.Key_F8:  # Play/Pause
                 objimage1.play_pause()
             if event.key() == Qt.Key_F10:
@@ -1843,7 +1932,7 @@ frames.append(frame1)
 frame2 = QtWidgets.QFrame(w)
 frame2.setObjectName("frame2")
 frame2.setGeometry(0, 0, width, height)
-frame2.setStyleSheet("#frame2 { background-color: white; border-image: url(" +
+frame2.setStyleSheet("#frame2 { background-color: black; border-image: url(" +
                      Config.background + ") 0 0 0 0 stretch stretch;}")
 frame2.setVisible(False)
 frames.append(frame2)
@@ -1873,8 +1962,12 @@ if Config.usephotoshow:
     objimage2 = ObituarySlide(foreGround, photoRect, "image2")
     
 if Config.usephotoshow:
-    photoRect = QtCore.QRect(310 * xscale , 0, width - (620 * xscale) , height)
+    photoRect = QtCore.QRect( 0 * xscale , 0, width - (620 * xscale) , height)
     objimage4 = ObituarySlide(frame2, photoRect, "image4")
+    
+if Config.bibleShow:
+    photoRect = QtCore.QRect( 800 * xscale , 110, width - (700 * xscale) , height)
+    objimage5 = BibleSlide(frame2, photoRect, "image5")
 
 
 squares1 = QtWidgets.QFrame(foreGround)
@@ -1973,16 +2066,19 @@ datex.setStyleSheet("#datex { font-family:sans-serif; color: " +
 datex.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 datex.setGeometry(0, 10, width, 100)
 
+#data frame2
 datex2 = QtWidgets.QLabel(frame2)
 datex2.setObjectName("datex2")
 datex2.setStyleSheet("#datex2 { font-family:sans-serif; color: " +
                      Config.textcolor +
-                     "; background-color: transparent; font-size: " +
-                     str(int(50 * xscale)) + "px; " +
+                     "; background-color: black; font-size: " +
+                     str(int(50* xscale)) + "px; " +
                      Config.fontattr +
                      "}")
 datex2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-datex2.setGeometry(800 * xscale, 780 * yscale, 640 * xscale, 100)
+datex2.setGeometry(840* xscale, 20 * yscale, 300 * xscale, 100)
+
+#hora frame 2
 datey2 = QtWidgets.QLabel(frame2)
 datey2.setObjectName("datey2")
 datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
@@ -1993,7 +2089,7 @@ datey2.setStyleSheet("#datey2 { font-family:sans-serif; color: " +
                      Config.fontattr +
                      "}")
 datey2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-datey2.setGeometry(800 * xscale, 840 * yscale, 640 * xscale, 100)
+datey2.setGeometry(1150 * xscale, 20 * yscale, 300 * xscale, 50)
 
 obituaryPersonNameLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonNameLabel.setObjectName("obituaryPersonNameLabel")
@@ -2067,10 +2163,10 @@ attribution2.setStyleSheet("#attribution2 { " +
 attribution2.setAlignment(Qt.AlignTop)
 attribution2.setGeometry(6 * xscale, 880 * yscale, 100 * xscale, 100)
 
-wxicon2 = QtWidgets.QLabel(frame2)
-wxicon2.setObjectName("wxicon2")
-wxicon2.setStyleSheet("#wxicon2 { background-color: transparent; }")
-wxicon2.setGeometry(0 * xscale, 750 * yscale, 150 * xscale, 150 * yscale)
+# wxicon2 = QtWidgets.QLabel(frame2)
+# wxicon2.setObjectName("wxicon2")
+# wxicon2.setStyleSheet("#wxicon2 { background-color: yellow; }")
+# wxicon2.setGeometry(0 * xscale, 750 * yscale, 150 * xscale, 150 * yscale)
 
 ypos += 130
 wxdesc = QtWidgets.QLabel(foreGround)
@@ -2085,17 +2181,19 @@ wxdesc.setStyleSheet("#wxdesc { background-color: transparent; color: " +
 wxdesc.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 wxdesc.setGeometry(5.625 * xscale, 52.73 * yscale, 300 * xscale, 100)
 
+##TEXTO BIBLIA
 wxdesc2 = QtWidgets.QLabel(frame2)
 wxdesc2.setObjectName("wxdesc2")
-wxdesc2.setStyleSheet("#wxdesc2 { background-color: transparent; color: " +
-                      Config.textcolor +
+wxdesc2.setWordWrap(True)
+
+wxdesc2.setStyleSheet("#wxdesc2 { background-transparent: black; color: white" +
                       "; font-size: " +
-                      str(int(50 * xscale)) +
+                      str(int(15 * xscale)) +
                       "px; " +
                       Config.fontattr +
                       "}")
-wxdesc2.setAlignment(Qt.AlignLeft | Qt.AlignTop)
-wxdesc2.setGeometry(400 * xscale, 800 * yscale, 400 * xscale, 100)
+wxdesc2.setAlignment(Qt.AlignLeft | Qt.AlignCenter)
+wxdesc2.setGeometry(820 * xscale, 80 * yscale, 620 * xscale, height -80)
 
 ypos += 25
 temper = QtWidgets.QLabel(foreGround)
@@ -2110,17 +2208,17 @@ temper.setStyleSheet("#temper { background-color: transparent; color: " +
 temper.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
 temper.setGeometry(72 * xscale, 105.46 * yscale, 300 * xscale, 100)
 
-temper2 = QtWidgets.QLabel(frame2)
-temper2.setObjectName("temper2")
-temper2.setStyleSheet("#temper2 { background-color: transparent; color: " +
-                      Config.textcolor +
-                      "; font-size: " +
-                      str(int(70 * xscale)) +
-                      "px; " +
-                      Config.fontattr +
-                      "}")
-temper2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-temper2.setGeometry(140 * xscale, 780 * yscale, 300 * xscale, 100)
+# temper2 = QtWidgets.QLabel(frame2)
+# temper2.setObjectName("temper2")
+# temper2.setStyleSheet("#temper2 { background-color: blue; color: " +
+                      # Config.textcolor +
+                      # "; font-size: " +
+                      # str(int(70 * xscale)) +
+                      # "px; " +
+                      # Config.fontattr +
+                      # "}")
+# temper2.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+# temper2.setGeometry(140 * xscale, 780 * yscale, 300 * xscale, 100)
 
 ypos += 80
 press = QtWidgets.QLabel(foreGround)
