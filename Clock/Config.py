@@ -27,7 +27,7 @@ minhand = 'images/minhand.png'
 sechand = 'images/sechand.png'
 
 # SlideShow
-useslideshow = 1             # 1 to enable, 0 to disable
+useslideshow = 1            # 1 to enable, 0 to disable
 slide_time = 10             # in seconds, 3600 per hour
 slides = 'images/slideshow'   # the path to your local images
 slide_bg_color = "#000000"       # https://htmlcolorcodes.com/  black #000
@@ -37,13 +37,14 @@ digital = 1                 # 1 = Digtal Clock, 0 = Analog Clock
 #downloadPhotos
 
 obituaryPhotos = 1
-limit = 1
+limit = 6
 # usephotoshow
 usephotoshow = 1
 photo_time = 30
 photos = 'images/photoshow'
+paperLinks = 'images/paperlinks'
 photo_bg_color = '#ffffff'
-time_to_fetch = 1800
+time_to_fetch = 60
 
 # Goes with light blue config (like the default one)
 digitalcolor = "#ffffff"
@@ -64,7 +65,7 @@ digitalformat2 = "{0:%H:%M:%S}"  # Format of the digital time on second screen
 
 usemapbox = 1   # Use Mapbox.com for maps, needs api key (mbapi in ApiKeys.py)
 metric = 1  # 0 = English, 1 = Metric
-radar_refresh =  10      # minutes
+radar_refresh =  1     # minutes
 weather_refresh = 10    # minutes
 # Wind in degrees instead of cardinal 0 = cardinal, 1 = degrees
 wind_degrees = 0
