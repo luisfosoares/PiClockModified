@@ -19,6 +19,7 @@ import shutil
 import glob
 
 
+
 import urllib
 # import re
 
@@ -30,6 +31,8 @@ from PyQt5.QtCore import Qt, QRunnable
 from PyQt5.QtNetwork import QNetworkReply
 from PyQt5.QtNetwork import QNetworkRequest
 from subprocess import Popen
+from pdf2image import convert_from_path, convert_from_bytes
+
 
 sys.dont_write_bytecode = True
 #sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
@@ -282,7 +285,6 @@ def wxfinished():
     global wxicon2, temper2, wxdesc
 
     attribution2.setText("")
-
     try:
         # For Python 3.0 and later
         from urllib.request import urlopen
@@ -335,10 +337,9 @@ def wxfinished():
                      '%.1f' % (speedm(f['windGust'])) + 'kmh')
         wind2.setText(Config.LFeelslike +
                       '%.1f' % (tempm(f['apparentTemperature'])) + u'°C')
-        wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
+        wdate.setText("Last Weather Update {0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
-# Config.LPrecip1hr + f['precip_1hr_metric'] + 'mm ' +
-# Config.LToday + f['precip_today_metric'] + 'mm')
+
     else:
         temper.setText('%.1f' % (f['temperature']) + u'°F')
         temper2.setText('%.1f' % (f['temperature']) + u'°F')
@@ -356,8 +357,7 @@ def wxfinished():
                       '%.1f' % (f['apparentTemperature']) + u'°F')
         wdate.setText("{0:%H:%M}".format(datetime.datetime.fromtimestamp(
             int(f['time']))))
-# Config.LPrecip1hr + f['precip_1hr_in'] + 'in ' +
-# Config.LToday + f['precip_today_in'] + 'in')
+
 
     bottomText = ""
     if "sunriseTime" in wxdata["daily"]["data"][0]:
@@ -500,8 +500,6 @@ def qtstart():
     global manager
     global objradar1
     global objradar2
-    global objradar3
-    global objradar4
     global meuBotao
 
     meuBotao = False
@@ -516,7 +514,6 @@ def qtstart():
     #objradar1.wxstart()
     objradar2.start(Config.radar_refresh * 60)
     objradar2.wxstart()
-    #objradar3.start(Config.radar_refresh * 60)
     #objradar4.start(Config.radar_refresh * 60)
 
     ctimer = QtCore.QTimer()
@@ -550,7 +547,7 @@ def qtstart():
 
 
 ## Class to run Main Slideshow (in the center of screen)
-class SS(QtWidgets.QLabel):
+class SlideShow(QtWidgets.QLabel):
     def __init__(self, parent, rect, myname):
         self.myname = myname
         self.rect = rect
@@ -662,6 +659,9 @@ class Fetch(QtCore.QObject):
         if firsttime == True:
             print ("1st")
             self.inicioFalecimentos() 
+            #images = convert_from_path('/home/pi/PiClock/Clock/images/paperlinks/21012609305993.pdf')
+            #for image in images:
+                #image.save('sample1.png', 'PNG')
             
             firsttime= False
         else:
@@ -688,12 +688,15 @@ class Fetch(QtCore.QObject):
             
     def updateStatus (self):
         print ("Actualiza ecra com novos dados")
+        objimage2.play_pause()
         objimage2.startPhoto(Config.photo_time)
-
+        objimage4.play_pause()
+        objimage4.startPhoto(Config.photo_time)
 
 
     def inicioFalecimentos(self):
         print ("Actualizando Falecimentos versao inicial")
+        
 
 
         #Obituary source
@@ -716,6 +719,7 @@ class Fetch(QtCore.QObject):
         global adress
         global obituaryList
         global funeral
+        global paperLinks
 
 
         nomes = []
@@ -726,6 +730,9 @@ class Fetch(QtCore.QObject):
         adress = []
         obituaryList = []
         funeral = []
+        paperLinks = []
+
+
 
         print (datetime.datetime.now())
         print ("Inicia o processo de dados de falecimentos")
@@ -738,6 +745,7 @@ class Fetch(QtCore.QObject):
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
+            
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
@@ -768,10 +776,21 @@ class Fetch(QtCore.QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
-
+                
+        for id in ids:
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            for result in soup2.find_all("ul", {"id": "folhetos"}):
+                url = re.findall(r'(?<=<a href=")[^"]*',str(result))
+                url1 = (str(url)[2:][:-2])
+                print (url1)
+                paperLinks.append(url1)
+                
+                
+                
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
-            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
+            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index], paperlink=paperLinks[index])
         print (datetime.datetime.now())
         print ("Termina o processo de dados falecimentos ")
 
@@ -802,8 +821,44 @@ class Fetch(QtCore.QObject):
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-        #print ("all photos added")
+        
+        
+        images=[]
+        for paperlink in paperLinks:
+            i = paperLinks.index(paperlink)
+            extensao = paperlink[-3:]
+            
 
+    	
+	    #link to save new 
+            link = ("/home/pi/PiClock/Clock/images/paperlinks/{}.{}".format(str(i),extensao))
+            linkReduced = link[-5:]
+            linkReduced2 = linkReduced [:1]
+            
+        
+	    #old picture link
+            fil = glob.glob('/home/pi/PiClock/Clock/images/paperlinks/{}*'.format(str(i)))
+
+	    #to check for old picture and delete to later replace for new one
+            if linkReduced2==str(i): #check picture number
+                if (fil): #check if folder is not empty
+                    if (os.path.isfile(fil[0])): #pick old picture
+                        os.unlink(fil[0]) #delete old picture
+                else:
+                    print ("fil is empty")
+            else:
+                print ("Old picture link not found")
+            f = open(link,'wb')
+            f.write(requests.get(paperlink).content)
+            print (str(link[-3:]))
+            newimage = convert_from_path(link)
+            for image in newimage:
+                newimage[0].save(link[:-3]+"png", 'PNG')
+            f.close()            
+
+
+        #print ("all photos added")
+        
 
         
         print ("Dados iniciais de falecimentos prontos")
@@ -817,9 +872,10 @@ class Worker(QObject):
     def __init__(self, *args, **kwargs):
         QThread.__init__(self, *args, **kwargs)
 
-
     def fetch_photos(self):
-        print ("Actualizando Falecimentos")
+        print ("Actualizando Falecimentos thread")
+        objimage2.play_pause()
+        objimage4.play_pause()
 
 
         #Obituary source
@@ -842,6 +898,7 @@ class Worker(QObject):
         global adress
         global obituaryList
         global funeral
+        global paperLinks
 
 
         nomes = []
@@ -852,6 +909,9 @@ class Worker(QObject):
         adress = []
         obituaryList = []
         funeral = []
+        paperLinks = []
+
+
 
         print (datetime.datetime.now())
         print ("Inicia o processo de dados de falecimentos")
@@ -864,6 +924,7 @@ class Worker(QObject):
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
+            
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
@@ -894,10 +955,21 @@ class Worker(QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
-
+                
+        for id in ids:
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            for result in soup2.find_all("ul", {"id": "folhetos"}):
+                url = re.findall(r'(?<=<a href=")[^"]*',str(result))
+                url1 = (str(url)[2:][:-2])
+                print (url1)
+                paperLinks.append(url1)
+                
+                
+                
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
-            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index])
+            pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index], paperlink=paperLinks[index])
         print (datetime.datetime.now())
         print ("Termina o processo de dados falecimentos ")
 
@@ -928,16 +1000,49 @@ class Worker(QObject):
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-        #print ("all photos added")
+        
+        
+        images=[]
+        for paperlink in paperLinks:
+            i = paperLinks.index(paperlink)
+            extensao = paperlink[-3:]
+            
 
+    	
+	    #link to save new 
+            link = ("/home/pi/PiClock/Clock/images/paperlinks/{}.{}".format(str(i),extensao))
+            linkReduced = link[-5:]
+            linkReduced2 = linkReduced [:1]
+            
+        
+	    #old picture link
+            fil = glob.glob('/home/pi/PiClock/Clock/images/paperlinks/{}*'.format(str(i)))
+
+	    #to check for old picture and delete to later replace for new one
+            if linkReduced2==str(i): #check picture number
+                if (fil): #check if folder is not empty
+                    if (os.path.isfile(fil[0])): #pick old picture
+                        os.unlink(fil[0]) #delete old picture
+                else:
+                    print ("fil is empty")
+            else:
+                print ("Old picture link not found")
+            f = open(link,'wb')
+            f.write(requests.get(paperlink).content)
+            print (str(link[-3:]))
+            newimage = convert_from_path(link)
+            for image in newimage:
+                newimage[0].save(link[:-3]+"png", 'PNG')
+            f.close()                    
 
         
-        print ("Dados de falecimentos prontos")
+        print ("Dados thread falecimentos prontos")
+    
         self.finished.emit()
 
 
 ## Class to run Obituary Slideshow (in the left of screen)
-class SS2(QtWidgets.QLabel):
+class ObituarySlide(QtWidgets.QLabel):
 
 
     def __init__(self, parent, rect, myname):
@@ -945,13 +1050,11 @@ class SS2(QtWidgets.QLabel):
         self.rect = rect
         QtWidgets.QLabel.__init__(self, parent)
 
-        self.pause = False
+        self.pause = True
         self.count = 0
         self.img_list = []
         self.img_inc = 1
 
-        #self.get_images()
-	### to test what happens if not commented above
         self.setObjectName("slideShow")
         self.setGeometry(rect)
         self.setStyleSheet("#slideShow { background-color: " +
@@ -988,7 +1091,13 @@ class SS2(QtWidgets.QLabel):
                 if self.count >= len(self.img_list):
                  
                     self.count = 0
-                self.show_image(self.img_list[self.count])
+                #Mostra imagem no obituario frame1
+                if self.myname == "image2":
+                    self.show_image(self.img_list[self.count])
+                #Mostra folha obito frame 2
+                else:
+                    self.show_image(self.img_list[self.count])
+                    
 		#to get number of photo based on saved name
 		#select last 5 characters, remove the . and extension (3chars)
 	        #print ((self.img_list[self.count])[-5:])[:1]
@@ -996,9 +1105,7 @@ class SS2(QtWidgets.QLabel):
                 self.img_inc = 1
                 try:
                     obituaryPhotoNumber = int(((self.img_list[self.count])[-5:])[:1])
-                    ###print ("Obituary photo number:" + str(obituaryPhotoNumber))
                     obituaryPhotoDisplayFinished(obituaryPhotoNumber)
-                    #print ("Passou o try obityaryPhotoBr")
                 except:
                     print ("Ainda nao tem fotos de falecimentos")
                 
@@ -1015,15 +1122,20 @@ class SS2(QtWidgets.QLabel):
                 QtCore.Qt.SmoothTransformation))
 
     def get_images(self):
+        if self.myname == "image2":
             self.get_local(Config.photos)
+        else:
+            self.get_local(Config.paperLinks)
 
 
 
     def play_pause(self):
         if not self.pause:
             self.pause = True
+
         else:
             self.pause = False
+
 
     def prev_next(self, direction):
         self.img_inc = direction
@@ -1045,20 +1157,7 @@ class SS2(QtWidgets.QLabel):
                or fullFile.lower().endswith('jpg')):
                     self.img_list.append(fullFile)
 
-        ###print ("photos added in img_list")
-#	print self.img_list
 
-def run(user_input, log):
-    text = ""
-    if user_input == "":
-        text = "Please enter a value\n"
-    else:
-        text = "Test"
-
-    QMetaObject.invokeMethod(log,
-                "append", Qt.QueuedConnection, 
-                Q_ARG(str, text))
-                
 
         
 
@@ -1068,7 +1167,7 @@ def run(user_input, log):
 #Create list with all dictinary
 #List will be ordered according scrapping
 ### To rework, is it neede d all conversion from array do dict.......
-def pessoa(nome, photo, date, id, age,adress,funeral):
+def pessoa(nome, photo, date, id, age,adress,funeral,paperlink):
 
 
     global dicionario
@@ -1080,7 +1179,8 @@ def pessoa(nome, photo, date, id, age,adress,funeral):
         "id" : id,
         "age" : age,
         "adress" : adress,
-        "funeral" : funeral
+        "funeral" : funeral,
+        "paperlink": paperlink
         }
 
     #print dicionario
@@ -1091,7 +1191,7 @@ def pessoa(nome, photo, date, id, age,adress,funeral):
 class Radar(QtWidgets.QLabel):
 
     def __init__(self, parent, radar, rect, myname):
-        global xscale, yscale , luiss
+        global xscale, yscale
         self.myname = myname
         self.rect = rect
         self.anim = 5
@@ -1099,8 +1199,7 @@ class Radar(QtWidgets.QLabel):
         self.point = radar["center"]
         self.radar = radar
         self.baseurl = self.mapurl(radar, rect)
-        print ("Inside Radar")
-        print (self.baseurl)
+#        print "map base url: " + self.baseurl
         QtWidgets.QLabel.__init__(self, parent)
         self.interval = Config.radar_refresh * 60
         self.lastwx = 0
@@ -1175,34 +1274,54 @@ class Radar(QtWidgets.QLabel):
 
     def rtick(self):
         if time.time() > (self.lastget + self.interval):
+            print ("Refresh time")
             self.get(time.time())
             self.lastget = time.time()
         if len(self.frameImages) < 1:
+            #print ("Rtick Frameimages <1")
             return
         if self.displayedFrame == 0:
+            #print ("displayedFrame == 0")
             self.ticker += 1
+            #print ("self ticker=")
+            #print (str(self.ticker))
             if self.ticker < 5:
+                #print ("ticker <5")
                 return
         self.ticker = 0
+        #print ("funcao de erro")
         f = self.frameImages[self.displayedFrame]
+        #print (str(f))
         self.wwx.setPixmap(f["image"])
         self.displayedFrame += 1
+        #print ("displayed frame")
+        #print (str(self.displayedFrame))
         if self.displayedFrame >= len(self.frameImages):
             self.displayedFrame = 0
 
     def get(self, t=0):
+        #print ("metodo get - inicia a procura de radar")
         t = int(t / 600)*600
+        #print (str(t))
         if t > 0 and self.baseTime == t:
+            #print ("if t > 0 and self.baseTime == t: --- WILL RETURN" )
             return
         if t == 0:
             t = self.baseTime
+            #print ("t = 0 entao t = self.baseTime" )
         else:
             self.baseTime = t
+            #print ("self.baseTime = t" )
         newf = []
         for f in self.frameImages:
+            #print ("f" + (str(f)))
             if f["time"] >= (t - self.anim * 600):
                 newf.append(f)
+                #print ("newf")
+                #print (str(newf))
         self.frameImages = newf
+        #print ("self.frameimages = new f")
+        #print (str(self.frameImages))
         firstt = t - self.anim * 600
         for tt in range(firstt, t+1, 600):
 #            print "get... " + str(tt) + " " + self.myname
@@ -1213,7 +1332,6 @@ class Radar(QtWidgets.QLabel):
             if not gotit:
                 self.getTiles(tt)
                 break
-
 
     def getTiles(self, t, i=0):
         t = int(t / 600)*600
@@ -1229,11 +1347,11 @@ class Radar(QtWidgets.QLabel):
 #        print self.myname + " " + str(self.getIndex) + " " + self.tileurls[i]
         self.tilereq = QNetworkRequest(QUrl(self.tileurls[i]))
         self.tilereply = manager.get(self.tilereq)
+        #QtCore.QObject.connect(self.tilereply, QtCore.SIGNAL("finished()"), self.getTilesReply)
         self.tilereply.finished.connect(self.getTilesReply)
-
-
-
+        
     def getTilesReply(self):
+#        print "getTilesReply " + str(self.getIndex)
         if self.tilereply.error() != QNetworkReply.NoError:
                 return
         self.tileQimages.append(QImage())
@@ -1243,6 +1361,7 @@ class Radar(QtWidgets.QLabel):
             self.getTiles(self.getTime, self.getIndex)
         else:
             self.combineTiles()
+            #print ("Vai chamar o get sem tempo")
             self.get()
 
     def combineTiles(self):
@@ -1399,18 +1518,9 @@ class Radar(QtWidgets.QLabel):
     def getbase(self):
         global manager
         self.basereq = QNetworkRequest(QUrl(self.baseurl))
-        
-        self.nam = QtNetwork.QNetworkAccessManager()
-        #self.nam.finished.connect(self.basefinished)
-        self.basereply = self.nam.get(self.basereq)
+        self.basereply = manager.get(self.basereq)
+        #QtCore.QObject.connect(self.basereply, QtCore.SIGNAL("finished()"), self.basefinished)
         self.basereply.finished.connect(self.basefinished)
-
-        
-        # #QtCore.QObject.connect(self.basereply, QtCore.SIGNAL("finished()"), self.basefinished)
-        
-
-       
-
 
     def start(self, interval=0):
         global firsttime
@@ -1449,6 +1559,7 @@ def myquit(a=0, b=0):
 
     #objradar1.stop()
     objradar2.stop()
+    
     #objradar3.stop()
     #objradar4.stop()
     ctimer.stop()
@@ -1511,15 +1622,6 @@ class myMain(QtWidgets.QWidget):
             # print event.key(), format(event.key(), '08x')
             if event.key() == Qt.Key_F4:
                 myquit()
-            if event.key() == Qt.Key_F2:
-                if time.time() > lastkeytime:
-                    if weatherplayer is None:
-                        weatherplayer = Popen(
-                            ["mpg123", "-q", Config.noaastream])
-                    else:
-                        weatherplayer.kill()
-                        weatherplayer = None
-                lastkeytime = time.time() + 2
             if event.key() == Qt.Key_Space:
                 nextframe(1)
             if event.key() == Qt.Key_Left:
@@ -1718,7 +1820,8 @@ w.setStyleSheet("QWidget { background-color: black;}")
 xscale = float(width) / 1440.0 
 yscale = float(height) / 900.0 
 
-
+xScaleOffset = 0.88
+yScaleOffset = 1
 
 #print ("xscale "  + str(xscale))
 #print ("yscale" + str(yscale))
@@ -1735,22 +1838,12 @@ frame1.setStyleSheet("#frame1 { background-color: black; border-image: url(" +
 frames.append(frame1)
 
 
-if Config.useslideshow:
-    imgRect = QtCore.QRect(310 * xscale , 120, width - (620 * xscale) , height-120)
-    objimage1 = SS(frame1, imgRect, "image1")
-
-if Config.obituaryPhotos:
-    objimage3 = Fetch()
-
-if Config.usephotoshow:
-    photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 200 * yscale)
-    objimage2 = SS2(frame1, photoRect, "image2")
 
 
 frame2 = QtWidgets.QFrame(w)
 frame2.setObjectName("frame2")
 frame2.setGeometry(0, 0, width, height)
-frame2.setStyleSheet("#frame2 { background-color: blue; border-image: url(" +
+frame2.setStyleSheet("#frame2 { background-color: white; border-image: url(" +
                      Config.background + ") 0 0 0 0 stretch stretch;}")
 frame2.setVisible(False)
 frames.append(frame2)
@@ -1767,6 +1860,22 @@ foreGround = QtWidgets.QFrame(frame1)
 foreGround.setObjectName("foreGround")
 foreGround.setStyleSheet("#foreGround { background-color: transparent; }")
 foreGround.setGeometry(0, 0, width, height)
+
+if Config.useslideshow:
+    imgRect = QtCore.QRect(310 * xscale , 120, width - (620 * xscale) , height-120)
+    objimage1 = SlideShow(frame1, imgRect, "image1")
+
+if Config.obituaryPhotos:
+    objimage3 = Fetch()
+
+if Config.usephotoshow:
+    photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 200 * yscale)
+    objimage2 = ObituarySlide(foreGround, photoRect, "image2")
+    
+if Config.usephotoshow:
+    photoRect = QtCore.QRect(310 * xscale , 0, width - (620 * xscale) , height)
+    objimage4 = ObituarySlide(frame2, photoRect, "image4")
+
 
 squares1 = QtWidgets.QFrame(foreGround)
 squares1.setObjectName("squares1")
@@ -1845,17 +1954,11 @@ else:
     clockface.setGraphicsEffect(glow)
 
 
-radar1rect = QtCore.QRect(3 * xscale, 344 * yscale, 300 * xscale, 275 * yscale)
-#objradar1 = Radar(foreGround, Config.radar1, radar1rect, "radar1")
 
 radar2rect = QtCore.QRect(3 * xscale, 622 * yscale, 300 * xscale, 275 * yscale)
 objradar2 = Radar(foreGround, Config.radar2, radar2rect, "radar2")
 
-#radar3rect = QtCore.QRect(13 * xscale, 50 * yscale, 700 * xscale, 700 * yscale)
-#objradar3 = Radar(frame2, Config.radar3, radar3rect, "radar3")
 
-#radar4rect = QtCore.QRect(726 * xscale, 50 * yscale,700 * xscale, 700 * yscale)
-#objradar4 = Radar(frame2, Config.radar4, radar4rect, "radar4")
 
 
 datex = QtWidgets.QLabel(foreGround)
@@ -1898,7 +2001,7 @@ obituaryPersonNameLabel.setStyleSheet("#obituaryPersonNameLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(15 * xscale)) +
+                          str(int(15 * xscale * xScaleOffset)) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
@@ -1912,7 +2015,7 @@ obituaryPersonDateAndAgeLabel.setStyleSheet("#obituaryPersonDateAndAgeLabel { " 
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(16 * xscale)) +
+                          str(int(16 * xscale * xScaleOffset)) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
@@ -1925,12 +2028,12 @@ obituaryPersonAdressLabel.setStyleSheet("#obituaryPersonAdressLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(16 * xscale)) +
+                          str(int(15 * xscale * xScaleOffset)) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
 obituaryPersonAdressLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-obituaryPersonAdressLabel.setGeometry(6 * xscale, 570 * yscale , 300 * xscale, 100)
+obituaryPersonAdressLabel.setGeometry(20 * xscale, 559* yscale , 300 * xscale * xScaleOffset, 100)
 
 obituaryPersonFuneralLabel = QtWidgets.QLabel(foreGround)
 obituaryPersonFuneralLabel.setObjectName("obituaryPersonFuneralLabel")
@@ -1938,18 +2041,18 @@ obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(15 * xscale)) +
+                          str(int(14.8 * xscale * xScaleOffset )) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
 obituaryPersonFuneralLabel.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-obituaryPersonFuneralLabel.setGeometry(6 * xscale, 583 * yscale , 300 * xscale, 200)
+obituaryPersonFuneralLabel.setGeometry(6 * xscale, 583 * yscale , 300 * xscale , 200)
 
 ypos = -25
 wxicon = QtWidgets.QLabel(foreGround)
 wxicon.setObjectName("wxicon")
 wxicon.setStyleSheet("#wxicon { background-color: transparent; }")
-wxicon.setGeometry(0 * xscale, 80 * yscale, 150 * xscale, 140 * yscale)
+wxicon.setGeometry(0 * xscale, 80 * yscale, 150 * xscale * xScaleOffset, 140 * yscale)
 
 attribution2 = QtWidgets.QLabel(frame2)
 attribution2.setObjectName("attribution2")
@@ -2000,12 +2103,12 @@ temper.setObjectName("temper")
 temper.setStyleSheet("#temper { background-color: transparent; color: " +
                      Config.textcolor +
                      "; font-size: " +
-                     str(int(60 * xscale)) +
+                     str(int(55 * xscale)) +
                      "px; " +
                      Config.fontattr +
                      "}")
 temper.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
-temper.setGeometry(70 * xscale, 105.46 * yscale, 300 * xscale, 100)
+temper.setGeometry(72 * xscale, 105.46 * yscale, 300 * xscale, 100)
 
 temper2 = QtWidgets.QLabel(frame2)
 temper2.setObjectName("temper2")
@@ -2025,7 +2128,7 @@ press.setObjectName("press")
 press.setStyleSheet("#press { background-color: transparent; color: " +
                     Config.textcolor +
                     "; font-size: " +
-                    str(int(25 * xscale)) +
+                    str(int(20 * xscale)) +
                     "px; " +
                     Config.fontattr +
                     "}")
@@ -2038,7 +2141,7 @@ humidity.setObjectName("humidity")
 humidity.setStyleSheet("#humidity { background-color: transparent; color: " +
                        Config.textcolor +
                        "; font-size: " +
-                       str(int(25 * xscale)) +
+                       str(int(20 * xscale)) +
                        "px; " +
                        Config.fontattr +
                        "}")
@@ -2051,7 +2154,7 @@ wind.setObjectName("wind")
 wind.setStyleSheet("#wind { background-color: transparent; color: " +
                    Config.textcolor +
                    "; font-size: " +
-                   str(int(18 * xscale)) +
+                   str(int(15 * xscale)) +
                    "px; " +
                    Config.fontattr +
                    "}")
@@ -2064,7 +2167,7 @@ wind2.setObjectName("wind2")
 wind2.setStyleSheet("#wind2 { background-color: transparent; color: " +
                     Config.textcolor +
                     "; font-size: " +
-                    str(int(20 * xscale)) +
+                    str(int(18 * xscale)) +
                     "px; " +
                     Config.fontattr +
                     "}")
