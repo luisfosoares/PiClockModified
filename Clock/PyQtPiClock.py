@@ -44,7 +44,7 @@ from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # 
 #File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
 global objimage2, firsttime, button 
-button = Button(2)
+#button = Button(2)
 
 
 #Second by second clock definition
@@ -57,9 +57,9 @@ def tick():
     global meuBotao
     global button 
     
-    if button.is_pressed:
-        print("Button is pressed")  
-        nextframe(1)
+    #if button.is_pressed:
+    #    print("Button is pressed")  
+    #    nextframe(1)
         
 
     if Config.DateLocale != "":
@@ -749,20 +749,20 @@ class Fetch(QtCore.QObject):
         
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
         	nomes.append(falecimentos.text)
-        print (str(len(nomes)))
+        #print (str(len(nomes)))
 
         for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=Config.limit):
         	pattern = r"(?<=url\().*(?='\))"
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
-        print (str(len(fotos)))
+        #print (str(len(fotos)))
             
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
         	datas.append(obito.text)
-        print (str(len(datas)))
+        #print (str(len(datas)))
 
 
         for result in  soup.find_all('div',class_='f_bloc',limit=Config.limit):
@@ -772,18 +772,20 @@ class Fetch(QtCore.QObject):
 
         for local in soup.find_all('span',class_='local',limit=Config.limit):
         	adress.append(local.text)
-        print (str(len(adress)))
+        #print (str(len(adress)))
 
         for id in ids:
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    ages.append(soup2.find_all('span',class_='idade-detail')[-1].get_text(strip=True))
+            except:
+                ages.append(str("-- anos"))
 
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
-
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-
-        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
-                    ages.append(idade.text.strip())
-        print ("ages")
-        print (str(len(ages)))
+        	#for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+                    #ages.append(idade.text.strip())
+   
+        #print (str(len(ages)))
 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -792,7 +794,7 @@ class Fetch(QtCore.QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
-        print (str(len(funeral)))
+        #print (str(len(funeral)))
                 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -802,7 +804,7 @@ class Fetch(QtCore.QObject):
                 url1 = (str(url)[2:][:-2])
                 paperLinks.append(url1)
         
-        print (str(len(paperLinks)))
+        #print (str(len(paperLinks)))
                 
                 
                 
@@ -958,13 +960,14 @@ class Worker(QObject):
         	adress.append(local.text)
 
         for id in ids:
-
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
-
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-
-        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
-                    ages.append(idade.text.strip())
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    ages.append(soup2.find_all('span',class_='idade-detail')[-1].get_text(strip=True))
+            except:
+                ages.append(str("-- anos"))
+        	#for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+             #       ages.append(idade.text.strip())
 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -1361,64 +1364,41 @@ class Radar(QtWidgets.QLabel):
 
     def rtick(self):
         if time.time() > (self.lastget + self.interval):
-            print ("Refresh time")
             self.get(time.time())
             self.lastget = time.time()
-            print ("lenght of frameImages " + str (len(self.frameImages)))
         if len(self.frameImages) < 1:
-            #print ("Rtick Frameimages <1")
             return
         if self.displayedFrame == 0:
-            #print ("displayedFrame == 0")
             self.ticker += 1
-            #print ("self ticker=")
-            #print (str(self.ticker))
             if self.ticker < 5:
-                #print ("ticker <5")
                 return
         self.ticker = 0
-        print ("self.displauyed frame = " + str(self.displayedFrame))
         if (len(self.frameImages) == self.displayedFrame):
-            print ("OS VALORES SAO IGUAISSSSSSSS")
             self.displayedFrame = self.displayedFrame -1
             f = self.frameImages[self.displayedFrame] 
             self.displayedFrame = self.displayedFrame + 1
         else:
             f = self.frameImages[self.displayedFrame] 
-        #print (str(f))
         self.wwx.setPixmap(f["image"])
         self.displayedFrame += 1
-        #print ("displayed frame")
-        #print (str(self.displayedFrame))
         if self.displayedFrame >= len(self.frameImages):
             self.displayedFrame = 0
 
     def get(self, t=0):
-        #print ("metodo get - inicia a procura de radar")
         t = int(t / 600)*600
-        #print (str(t))
         if t > 0 and self.baseTime == t:
-            #print ("if t > 0 and self.baseTime == t: --- WILL RETURN" )
             return
         if t == 0:
             t = self.baseTime
-            #print ("t = 0 entao t = self.baseTime" )
         else:
             self.baseTime = t
-            #print ("self.baseTime = t" )
         newf = []
         for f in self.frameImages:
-            #print ("f" + (str(f)))
             if f["time"] >= (t - self.anim * 600):
                 newf.append(f)
-                #print ("newf")
-                #print (str(newf))
         self.frameImages = newf
-        print ("self.frameimages = new f")
-        print (str(self.frameImages))
         firstt = t - self.anim * 600
         for tt in range(firstt, t+1, 600):
-#            print "get... " + str(tt) + " " + self.myname
             gotit = False
             for f in self.frameImages:
                 if f["time"] == tt:
@@ -1438,14 +1418,12 @@ class Radar(QtWidgets.QLabel):
                 tileurl = "https://tilecache.rainviewer.com/v2/radar/%d/%s" \
                     % (t, tt)
                 self.tileurls.append(tileurl)
-#        print self.myname + " " + str(self.getIndex) + " " + self.tileurls[i]
         self.tilereq = QNetworkRequest(QUrl(self.tileurls[i]))
         self.tilereply = manager.get(self.tilereq)
         #QtCore.QObject.connect(self.tilereply, QtCore.SIGNAL("finished()"), self.getTilesReply)
         self.tilereply.finished.connect(self.getTilesReply)
         
     def getTilesReply(self):
-#        print "getTilesReply " + str(self.getIndex)
         if self.tilereply.error() != QNetworkReply.NoError:
                 return
         self.tileQimages.append(QImage())
@@ -2145,7 +2123,7 @@ obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(14.8 * xscale * xScaleOffset )) +
+                          str(int(13 * xscale * xScaleOffset )) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
@@ -2182,7 +2160,7 @@ wxdesc.setObjectName("wxdesc")
 wxdesc.setStyleSheet("#wxdesc { background-color: transparent; color: " +
                      Config.textcolor +
                      "; font-size: " +
-                     str(int(30 * xscale)) +
+                     str(int(28 * xscale)) +
                      "px; " +
                      Config.fontattr +
                      "}")
