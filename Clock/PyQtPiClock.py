@@ -18,6 +18,7 @@ import re
 import shutil
 import glob
 import codecs
+from gpiozero import Button
 
 
 
@@ -42,7 +43,9 @@ from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # 
 
 #File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
-global objimage2, firsttime 
+global objimage2, firsttime, button 
+button = Button(2)
+
 
 #Second by second clock definition
 def tick():
@@ -52,6 +55,12 @@ def tick():
     global clockrect
     global datex, datex2, datey2, pdy
     global meuBotao
+    global button 
+    
+    if button.is_pressed:
+        print("Button is pressed")  
+        nextframe(1)
+        
 
     if Config.DateLocale != "":
         try:
@@ -740,17 +749,20 @@ class Fetch(QtCore.QObject):
         
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
         	nomes.append(falecimentos.text)
+        print (str(len(nomes)))
 
         for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=Config.limit):
         	pattern = r"(?<=url\().*(?='\))"
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
+        print (str(len(fotos)))
             
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
         	datas.append(obito.text)
+        print (str(len(datas)))
 
 
         for result in  soup.find_all('div',class_='f_bloc',limit=Config.limit):
@@ -760,6 +772,7 @@ class Fetch(QtCore.QObject):
 
         for local in soup.find_all('span',class_='local',limit=Config.limit):
         	adress.append(local.text)
+        print (str(len(adress)))
 
         for id in ids:
 
@@ -769,6 +782,8 @@ class Fetch(QtCore.QObject):
 
         	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
                     ages.append(idade.text.strip())
+        print ("ages")
+        print (str(len(ages)))
 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -777,6 +792,7 @@ class Fetch(QtCore.QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
+        print (str(len(funeral)))
                 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -785,6 +801,9 @@ class Fetch(QtCore.QObject):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
                 paperLinks.append(url1)
+        
+        print (str(len(paperLinks)))
+                
                 
                 
                 
@@ -962,7 +981,7 @@ class Worker(QObject):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
                 paperLinks.append(url1)
-                
+
                 
                 
 	    #To pass each person collected to method "pessoa"
@@ -1345,6 +1364,7 @@ class Radar(QtWidgets.QLabel):
             print ("Refresh time")
             self.get(time.time())
             self.lastget = time.time()
+            print ("lenght of frameImages " + str (len(self.frameImages)))
         if len(self.frameImages) < 1:
             #print ("Rtick Frameimages <1")
             return
@@ -1357,7 +1377,14 @@ class Radar(QtWidgets.QLabel):
                 #print ("ticker <5")
                 return
         self.ticker = 0
-        f = self.frameImages[self.displayedFrame]
+        print ("self.displauyed frame = " + str(self.displayedFrame))
+        if (len(self.frameImages) == self.displayedFrame):
+            print ("OS VALORES SAO IGUAISSSSSSSS")
+            self.displayedFrame = self.displayedFrame -1
+            f = self.frameImages[self.displayedFrame] 
+            self.displayedFrame = self.displayedFrame + 1
+        else:
+            f = self.frameImages[self.displayedFrame] 
         #print (str(f))
         self.wwx.setPixmap(f["image"])
         self.displayedFrame += 1
@@ -1387,8 +1414,8 @@ class Radar(QtWidgets.QLabel):
                 #print ("newf")
                 #print (str(newf))
         self.frameImages = newf
-        #print ("self.frameimages = new f")
-        #print (str(self.frameImages))
+        print ("self.frameimages = new f")
+        print (str(self.frameImages))
         firstt = t - self.anim * 600
         for tt in range(firstt, t+1, 600):
 #            print "get... " + str(tt) + " " + self.myname
@@ -1682,6 +1709,8 @@ def changeState():
 
 #Main class to listem for keyboarda nd click modification
 class myMain(QtWidgets.QWidget):
+    
+    
 
     def keyPressEvent(self, event):
         global weatherplayer, lastkeytime
@@ -2341,7 +2370,8 @@ w.show()
 if Config.AppMode == "teste":
     print ("No fullscreen")
 else:
-    w.showFullScreen()
+    w.showFullScreen() 
+    print ("FullScreen")
 
 
 sys.exit(app.exec_())
