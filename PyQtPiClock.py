@@ -43,7 +43,9 @@ from GoogleMercatorProjection import getCorners, getPoint, getTileXY, LatLng  # 
 
 #File ApiKeys with tokens to access the weather and radar data
 import ApiKeys                                              # NOQA
-global objimage2, firsttime 
+global objimage2, firsttime, button
+button = Button(2)
+
 
 #Second by second clock definition
 def tick():
@@ -53,12 +55,12 @@ def tick():
     global clockrect
     global datex, datex2, datey2, pdy
     global meuBotao
-    
-    button = Button(2)
+    global button
+
     if button.is_pressed:
-        print("Button is pressed")  
+        print("Button is pressed")
         nextframe(1)
-        
+
 
     if Config.DateLocale != "":
         try:
@@ -154,7 +156,7 @@ def tick():
         ds = "{0:%A}, {0.day}<sup>{1}</sup>  {0:%B} {0.year}".format(now, sup)
         ds2 = "{0:%A}, {0.day}<sup>{1}</sup> {0:%B} {0.year}".format(now, sup)
         datex.setText(ds.title())
-        
+
         ds = "{0:%d}<sup>{1}</sup>/{0:%m}/{0.year}".format(now, sup)
         datex2.setText(ds.title())
 
@@ -272,7 +274,7 @@ def obituaryPhotoDisplayFinished(photoNumber):
         ##2020 version
         #obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-44])[33 :])
         obituaryPersonAdressLabel.setText((obituaryPerson["adress"][:-17]))
-        
+
         ###print (str(len(obituaryPerson["funeral"])))
 
         if (len(obituaryPerson["funeral"]) < 45):
@@ -303,9 +305,9 @@ def wxfinished():
         from urllib2 import urlopen
 
     myurl=  (str(wxurl))
-    
+
     #Try to get weather data online, if not possible use test weather
-    
+
     try:
         response = urlopen(myurl)
         data = response.read().decode("utf-8")
@@ -313,12 +315,12 @@ def wxfinished():
         f = wxdata['currently']
     except:
         print ("Not possible to colect weather data")
-        
+
         with open('weatherSample.txt') as json_file:
             wxdata = json.load(json_file)
             f = wxdata['currently']
 
-    
+
     wxiconpixmap = QtGui.QPixmap(Config.icons + "/" + f['icon'] + ".png")
     wxicon.setPixmap(wxiconpixmap.scaled(
         wxicon.width(), wxicon.height(), Qt.IgnoreAspectRatio,
@@ -518,7 +520,7 @@ def qtstart():
 
     objradar2.start(Config.radar_refresh * 60)
     objradar2.wxstart()
-    
+
     objimage5.startBible(Config.bibleTime)
 
     ctimer = QtCore.QTimer()
@@ -630,7 +632,7 @@ class SlideShow(QtWidgets.QLabel):
             dirContent = os.listdir(path)
         except OSError:
             print("path '%s' doesn't exists." % path)
-            
+
         self.img_list = []
         for each in dirContent:
             fullFile = os.path.join(path, each)
@@ -644,7 +646,7 @@ class SlideShow(QtWidgets.QLabel):
 #Class to fetch all data
 ##To change name to Scrape_obituary
 class Fetch(QtCore.QObject):
-    
+
     ###print (datetime.datetime.now())
 
     signalStatus = QtCore.pyqtSignal(str)
@@ -652,38 +654,38 @@ class Fetch(QtCore.QObject):
     def startFetching(self, interval):
         global firsttime
         print ("Manda iniciar a pesquisa de falecimentos")
-        
-        
-        
 
-        
+
+
+
+
         self.createWorkerThread()
         self._connectSignals()
-        
-        
+
+
         if firsttime == True:
             print ("1st")
-            self.inicioFalecimentos() 
+            self.inicioFalecimentos()
 
-            
+
             firsttime= False
         else:
             print ("2nd")
             intervalo = interval
-   
+
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.worker.fetch_photos)
         self.timer.start(1000 * interval + random.uniform(1, 10))
 
-            
+
     def createWorkerThread(self):
         self.worker = Worker()
         self.thread = QThread()
         self.worker.moveToThread(self.thread)
         self.thread.start()
-        
+
     def _connectSignals(self):
-        
+
         self.worker.finished.connect(self.updateStatus)
         self.thread.started.connect(self.worker.fetch_photos)
 
@@ -693,7 +695,7 @@ class Fetch(QtCore.QObject):
             self.timer = None
         except Exception:
             pass
-            
+
     def updateStatus (self):
         print ("Actualiza ecra com novos dados")
         objimage2.play_pause()
@@ -704,7 +706,7 @@ class Fetch(QtCore.QObject):
 
     def inicioFalecimentos(self):
         print ("Actualizando Falecimentos versao inicial")
-        
+
 
 
         #Obituary source
@@ -744,20 +746,22 @@ class Fetch(QtCore.QObject):
 
         print (datetime.datetime.now())
         print ("Inicia o processo de dados de falecimentos")
-        
+
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
-        	nomes.append(falecimentos.text)
+            nomes.append(falecimentos.text)
 
         for result in  soup.find_all('div',attrs={'class':'f_bloc_img','style':True},limit=Config.limit):
         	pattern = r"(?<=url\().*(?='\))"
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
-            
+        #print (str(len(fotos)))
+
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
         	datas.append(obito.text)
+        #print (str(len(datas)))
 
 
         for result in  soup.find_all('div',class_='f_bloc',limit=Config.limit):
@@ -767,15 +771,20 @@ class Fetch(QtCore.QObject):
 
         for local in soup.find_all('span',class_='local',limit=Config.limit):
         	adress.append(local.text)
+        #print (str(len(adress)))
 
         for id in ids:
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    ages.append(soup2.find_all('span',class_='idade-detail')[-1].get_text(strip=True))
+            except:
+                ages.append(str("-- anos"))
 
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+        	#for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+                    #ages.append(idade.text.strip())
 
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-
-        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
-                    ages.append(idade.text.strip())
+        #print (str(len(ages)))
 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -784,7 +793,8 @@ class Fetch(QtCore.QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
-                
+        #print (str(len(funeral)))
+
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
             soup2 =BeautifulSoup(soure, 'html5lib')
@@ -792,9 +802,12 @@ class Fetch(QtCore.QObject):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
                 paperLinks.append(url1)
-                
-                
-                
+
+        #print (str(len(paperLinks)))
+
+
+
+
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index], paperlink=paperLinks[index])
@@ -828,21 +841,21 @@ class Fetch(QtCore.QObject):
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-        
-        
+
+
         images=[]
         for paperlink in paperLinks:
             i = paperLinks.index(paperlink)
             extensao = paperlink[-3:]
-            
 
-    	
-	    #link to save new 
+
+
+	    #link to save new
             link = ("/home/pi/PiClock/Clock/images/paperlinks/{}.{}".format(str(i),extensao))
             linkReduced = link[-5:]
             linkReduced2 = linkReduced [:1]
-            
-        
+
+
 	    #old picture link
             fil = glob.glob('/home/pi/PiClock/Clock/images/paperlinks/{}*'.format(str(i)))
 
@@ -860,21 +873,21 @@ class Fetch(QtCore.QObject):
             newimage = convert_from_path(link)
             for image in newimage:
                 newimage[0].save(link[:-3]+"png", 'PNG')
-            f.close()            
+            f.close()
 
 
         #print ("all photos added")
-        
 
-        
+
+
         print ("Dados iniciais de falecimentos prontos")
         self.updateStatus()
-        
+
 # Step 1: Create a worker class
 class Worker(QObject):
     finished = pyqtSignal()
     signalStatus = QtCore.pyqtSignal(str)
-    
+
     def __init__(self, *args, **kwargs):
         QThread.__init__(self, *args, **kwargs)
 
@@ -921,7 +934,7 @@ class Worker(QObject):
 
         print (datetime.datetime.now())
         print ("Inicia o processo de dados de falecimentos")
-        
+
         for falecimentos in soup.find_all('span',class_='nome',limit=Config.limit):
         	nomes.append(falecimentos.text)
 
@@ -930,7 +943,7 @@ class Worker(QObject):
         	url = re.search(pattern, result["style"]).group(0)
         	url= url[1:]
         	fotos.append(str(url))
-            
+
 
 
         for obito in soup.find_all('span',class_='idade', limit=Config.limit):
@@ -946,13 +959,14 @@ class Worker(QObject):
         	adress.append(local.text)
 
         for id in ids:
-
-        	soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
-
-        	soup2 =BeautifulSoup(soure, 'html5lib')
-
-        	for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
-                    ages.append(idade.text.strip())
+            soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
+            soup2 =BeautifulSoup(soure, 'html5lib')
+            try:
+           	    ages.append(soup2.find_all('span',class_='idade-detail')[-1].get_text(strip=True))
+            except:
+                ages.append(str("-- anos"))
+        	#for idade in soup2.find_all('span',class_='idade-detail',limit=Config.limit):
+             #       ages.append(idade.text.strip())
 
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
@@ -961,7 +975,7 @@ class Worker(QObject):
            	    funeral.append(soup2.find_all('span',class_='italic')[-1].get_text(strip=True))
             except:
                 funeral.append(str("Data a definir"))
-                
+
         for id in ids:
             soure = requests.get('https://www.infofunerais.pt/pt/funerais.html?id=' +  id).text
             soup2 =BeautifulSoup(soure, 'html5lib')
@@ -969,9 +983,9 @@ class Worker(QObject):
                 url = re.findall(r'(?<=<a href=")[^"]*',str(result))
                 url1 = (str(url)[2:][:-2])
                 paperLinks.append(url1)
-                
-                
-                
+
+
+
 	    #To pass each person collected to method "pessoa"
         for index, nome in enumerate(nomes):
             pessoa(nome=nomes[index],photo=fotos[index],date=datas[index],id=ids[index],age=ages[index],adress=adress[index],funeral=funeral[index], paperlink=paperLinks[index])
@@ -1005,21 +1019,21 @@ class Worker(QObject):
             f = open(link,'wb')
             f.write(requests.get(photo).content)
             f.close()
-        
-        
+
+
         images=[]
         for paperlink in paperLinks:
             i = paperLinks.index(paperlink)
             extensao = paperlink[-3:]
-            
 
-    	
-	    #link to save new 
+
+
+	    #link to save new
             link = ("/home/pi/PiClock/Clock/images/paperlinks/{}.{}".format(str(i),extensao))
             linkReduced = link[-5:]
             linkReduced2 = linkReduced [:1]
-            
-        
+
+
 	    #old picture link
             fil = glob.glob('/home/pi/PiClock/Clock/images/paperlinks/{}*'.format(str(i)))
 
@@ -1037,11 +1051,11 @@ class Worker(QObject):
             newimage = convert_from_path(link)
             for image in newimage:
                 newimage[0].save(link[:-3]+"png", 'PNG')
-            f.close()                    
+            f.close()
 
-        
+
         print ("Dados thread falecimentos prontos")
-    
+
         self.finished.emit()
 
 
@@ -1086,7 +1100,7 @@ class BibleSlide(QtWidgets.QLabel):
     def show_chapter(self, image):
         wxdesc2.setText(image)
         return
-        
+
 
     def prev_next(self, direction):
         self.img_inc = direction
@@ -1100,12 +1114,12 @@ class BibleSlide(QtWidgets.QLabel):
             contentBiblia = jsonBiblia.read()
             if contentBiblia.startswith(u'\ufeff'):
                 contentBiblia = contentBiblia.encode('utf8')[3:].decode('utf8')
-            
+
             d = json.loads(contentBiblia)
-            
+
         numeroLivros=len(d)
         livroRandom = random.randint(0, len(d) -1)
-        
+
         numeroCapitulos = d[livroRandom]['chapters']
         numeroCapRandom = random.randint(0, len(numeroCapitulos)-1 )
         textoBiblia = (d[livroRandom]['chapters'][numeroCapRandom])
@@ -1113,7 +1127,7 @@ class BibleSlide(QtWidgets.QLabel):
         textoCompleto= ""
         for line in textoBiblia:
             textoCompleto = textoCompleto  + line
-        
+
         self.show_chapter(textoCompleto)
 
 
@@ -1164,15 +1178,20 @@ class ObituarySlide(QtWidgets.QLabel):
             if not self.pause:
                 self.count += self.img_inc
                 if self.count >= len(self.img_list):
-                 
                     self.count = 0
+
+                #Sort list because photoshow and papelink must be sync
+                self.img_list.sort()
+
                 #Mostra imagem no obituario frame1
+
+
                 if self.myname == "image2":
                     self.show_image(self.img_list[self.count])
                 #Mostra folha obito frame 2
                 else:
                     self.show_image(self.img_list[self.count])
-                    
+
 		#to get number of photo based on saved name
 		#select last 5 characters, remove the . and extension (3chars)
 	        #print ((self.img_list[self.count])[-5:])[:1]
@@ -1183,11 +1202,12 @@ class ObituarySlide(QtWidgets.QLabel):
                     obituaryPhotoDisplayFinished(obituaryPhotoNumber)
                 except:
                     print ("Ainda nao tem fotos de falecimentos")
-                
+
         else:
             print ("No image Available in image List")
 
     def show_image(self, image):
+        #print (str(image))
         image = QtGui.QImage(image)
 
         bg = QtGui.QPixmap.fromImage(image)
@@ -1234,7 +1254,7 @@ class ObituarySlide(QtWidgets.QLabel):
 
 
 
-        
+
 
 
 
@@ -1258,7 +1278,7 @@ def pessoa(nome, photo, date, id, age,adress,funeral,paperlink):
         "paperlink": paperlink
         }
 
-    #print dicionario
+
     obituaryList.append(dicionario)
 
 
@@ -1349,56 +1369,41 @@ class Radar(QtWidgets.QLabel):
 
     def rtick(self):
         if time.time() > (self.lastget + self.interval):
-            print ("Refresh time")
             self.get(time.time())
             self.lastget = time.time()
         if len(self.frameImages) < 1:
-            #print ("Rtick Frameimages <1")
             return
         if self.displayedFrame == 0:
-            #print ("displayedFrame == 0")
             self.ticker += 1
-            #print ("self ticker=")
-            #print (str(self.ticker))
             if self.ticker < 5:
-                #print ("ticker <5")
                 return
         self.ticker = 0
-        f = self.frameImages[self.displayedFrame]
-        #print (str(f))
+        if (len(self.frameImages) == self.displayedFrame):
+            self.displayedFrame = self.displayedFrame -1
+            f = self.frameImages[self.displayedFrame]
+            self.displayedFrame = self.displayedFrame + 1
+        else:
+            f = self.frameImages[self.displayedFrame]
         self.wwx.setPixmap(f["image"])
         self.displayedFrame += 1
-        #print ("displayed frame")
-        #print (str(self.displayedFrame))
         if self.displayedFrame >= len(self.frameImages):
             self.displayedFrame = 0
 
     def get(self, t=0):
-        #print ("metodo get - inicia a procura de radar")
         t = int(t / 600)*600
-        #print (str(t))
         if t > 0 and self.baseTime == t:
-            #print ("if t > 0 and self.baseTime == t: --- WILL RETURN" )
             return
         if t == 0:
             t = self.baseTime
-            #print ("t = 0 entao t = self.baseTime" )
         else:
             self.baseTime = t
-            #print ("self.baseTime = t" )
         newf = []
         for f in self.frameImages:
-            #print ("f" + (str(f)))
             if f["time"] >= (t - self.anim * 600):
                 newf.append(f)
-                #print ("newf")
-                #print (str(newf))
         self.frameImages = newf
-        #print ("self.frameimages = new f")
-        #print (str(self.frameImages))
         firstt = t - self.anim * 600
         for tt in range(firstt, t+1, 600):
-#            print "get... " + str(tt) + " " + self.myname
             gotit = False
             for f in self.frameImages:
                 if f["time"] == tt:
@@ -1418,14 +1423,12 @@ class Radar(QtWidgets.QLabel):
                 tileurl = "https://tilecache.rainviewer.com/v2/radar/%d/%s" \
                     % (t, tt)
                 self.tileurls.append(tileurl)
-#        print self.myname + " " + str(self.getIndex) + " " + self.tileurls[i]
         self.tilereq = QNetworkRequest(QUrl(self.tileurls[i]))
         self.tilereply = manager.get(self.tilereq)
         #QtCore.QObject.connect(self.tilereply, QtCore.SIGNAL("finished()"), self.getTilesReply)
         self.tilereply.finished.connect(self.getTilesReply)
-        
+
     def getTilesReply(self):
-#        print "getTilesReply " + str(self.getIndex)
         if self.tilereply.error() != QNetworkReply.NoError:
                 return
         self.tileQimages.append(QImage())
@@ -1633,7 +1636,7 @@ def myquit(a=0, b=0):
 
     #objradar1.stop()
     objradar2.stop()
-    
+
     #objradar3.stop()
     #objradar4.stop()
     ctimer.stop()
@@ -1689,8 +1692,8 @@ def changeState():
 
 #Main class to listem for keyboarda nd click modification
 class myMain(QtWidgets.QWidget):
-    
-    
+
+
 
     def keyPressEvent(self, event):
         global weatherplayer, lastkeytime
@@ -1843,7 +1846,7 @@ try:
     Config.usephotoshow
 except AttributeError:
     Config.usephotoshow = 0
-    
+
 try:
     Config.AppMode
 except AttributeError:
@@ -1878,10 +1881,10 @@ if Config.AppMode == "teste":
     width = rec.width() *0.66667
 else:
     print ("Mode release activated - Window size 1280X1024")
-    height = rec.height() 
+    height = rec.height()
     width = rec.width()
-     
-    
+
+
 signal.signal(signal.SIGINT, myquit)
 
 w = myMain()
@@ -1894,8 +1897,8 @@ w.setStyleSheet("QWidget { background-color: black;}")
 # yscale = float(height)/fullbgpixmap.height()
 
 
-xscale = float(width) / 1440.0 
-yscale = float(height) / 900.0 
+xscale = float(width) / 1440.0
+yscale = float(height) / 900.0
 
 xScaleOffset = 0.88
 yScaleOffset = 1
@@ -1948,11 +1951,11 @@ if Config.obituaryPhotos:
 if Config.usephotoshow:
     photoRect = QtCore.QRect(3 * xscale , 344 * yscale, 300 * xscale , 200 * yscale)
     objimage2 = ObituarySlide(foreGround, photoRect, "image2")
-    
+
 if Config.usephotoshow:
     photoRect = QtCore.QRect( 0 * xscale , 0, width - (620 * xscale) , height)
     objimage4 = ObituarySlide(frame2, photoRect, "image4")
-    
+
 if Config.bibleShow:
     photoRect = QtCore.QRect( 800 * xscale , 110, width - (700 * xscale) , height)
     objimage5 = BibleSlide(frame2, photoRect, "image5")
@@ -2125,7 +2128,7 @@ obituaryPersonFuneralLabel.setStyleSheet("#obituaryPersonFuneralLabel { " +
                           " background-color: transparent; color: " +
                           Config.textcolor +
                           "; font-size: " +
-                          str(int(14.8 * xscale * xScaleOffset )) +
+                          str(int(13 * xscale * xScaleOffset )) +
                           "px; " +
                           Config.fontattr + "font-weight: bold;" +
                           "}")
@@ -2162,7 +2165,7 @@ wxdesc.setObjectName("wxdesc")
 wxdesc.setStyleSheet("#wxdesc { background-color: transparent; color: " +
                      Config.textcolor +
                      "; font-size: " +
-                     str(int(30 * xscale)) +
+                     str(int(28 * xscale)) +
                      "px; " +
                      Config.fontattr +
                      "}")
@@ -2348,9 +2351,11 @@ stimer.singleShot(10, qtstart)
 
 w.show()
 if Config.AppMode == "teste":
+    print ("Version 21_02_2021 - 00:35 - Sync of picture with paperLink")
     print ("No fullscreen")
 else:
     w.showFullScreen()
+    print ("FullScreen")
 
 
 sys.exit(app.exec_())
